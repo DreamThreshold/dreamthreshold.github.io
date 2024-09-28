@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dream Threshold</title>
+<meta charset="UTF-8">
+<style>
+body{
+	/* font-family: sans-serif; */
+	font-size: 150%;
+	color: #aaffaa;
+	background: #230023;
+}
+input{
+	background: #aaffaa;
+	color: #230023;
+	border: none;
+	border-radius: 5px;
+	margin: 5px;
+	font-size: 60%;
+	font-family: serif;
+}
+
+</style>
+<script>
+function toggleAnim() {
+	console.log("within toggle anim()");
+	let anim = document.getElementById("anim");
+	let animbtn = document.getElementById("animbtn");
+	if (anim.style.display == "block"){
+		anim.style.display = "none";
+		console.log("display to none");
+		animbtn.value = "(Show)";
+	}
+	else{
+		anim.style.display = "block";
+		animbtn.value = "(Hide)";
+	}
+}
+</script>
+</head>
+<body>
+<div style="margin: 5px;">
+<h1><b>Dream Threshold</b></h1>
+<p><b>Hi. I <span style="color: #fff;">make (
+		<a style="color: #f99;">draw</a>
+		/<a style="color: #fd9;">code</a>
+		/<a style="color: #ff9;">sculpt</a>
+		/<a style="color: #9f9;">paint</a>
+		/<a style="color: #99f;">hack</a>
+		/ ...
+	)</span> my dreams and post them online.</b></p>
+<p>Every week I make <i>something</i> based on dreams of mine. <br>Pictures, videos, games; often "mixed media", or whatever. <br>Mainly building toward larger interactive pieces and video games, and a few larger non-dream projects. <br>Thanks for taking a look ☺</p>
+<p><a href="https://dream-threshold.itch.io/">itch.io</a></p>
+</div>
+
+<iframe id="anim" src="media/piece20240811.html" style="display: none; border:none; height: 250px; "></iframe>
+
+<input id="animbtn" type="button"  onclick="toggleAnim()" value="(Show animation)" />
+
+</body>
+</html>
