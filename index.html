@@ -4,6 +4,8 @@
 <title>Dream Threshold</title>
 <meta charset="UTF-8">
 <style>
+
+*{margin:0;padding:0;}
 body{
 	/* font-family: sans-serif; */
 	font-size: 150%;
@@ -20,6 +22,12 @@ input{
 	font-family: serif;
 }
 
+p{
+  margin-top: 1em;
+}
+li{
+	margin-left: 1em;
+}
 </style>
 <script>
 function toggleAnim() {
@@ -29,33 +37,79 @@ function toggleAnim() {
 	if (anim.style.display == "block"){
 		anim.style.display = "none";
 		console.log("display to none");
-		animbtn.value = "(Show)";
+		animbtn.innerHTML = "[ Show ]";
 	}
 	else{
 		anim.style.display = "block";
-		animbtn.value = "(Hide)";
+		animbtn.innerHTML = "[ Hide ]";
 	}
 }
 </script>
 </head>
 <body>
-<div style="margin: 5px;">
-<h1><b>Dream Threshold</b></h1>
-<p><b>Hi. I <span style="color: #fff;">make (
+<div style="margin: 2em;">
+<h1 style="text-shadow: 5px 5px 0px #030;"><b>Dream Threshold</b></h1>
+<p>
+	<b>Hi. I <span style="color: #fff;">make (
 		<a style="color: #f99;">draw</a>
 		/<a style="color: #fd9;">code</a>
 		/<a style="color: #ff9;">sculpt</a>
 		/<a style="color: #9f9;">paint</a>
 		/<a style="color: #99f;">hack</a>
 		/ ...
-	)</span> my dreams and post them online.</b></p>
-<p>Every week I make <i>something</i> based on dreams of mine. <br>Pictures, videos, games; often "mixed media", or whatever. <br>Mainly building toward larger interactive pieces and video games, and a few larger non-dream projects. <br>Thanks for taking a look ☺</p>
-<p><a href="https://dream-threshold.itch.io/">itch.io</a></p>
+	)</span> my dreams and post them online.</b>
+</p>
+<p>
+	Every week I make <i>something</i> based on dreams of mine.
+</p>
+<p>
+<!-- Often “mixed media”, or whatever: -->
+	<ul type="square">
+	<li type="square">Pictures & drawings</li>
+	<li>Games /
+		<span style="white-space: nowrap;" >
+			interactive
+			<img style="height:1em;" src="media/arrowLeft.png">
+			<a style=" font-size:80%;color: #c0c0f0">
+				Mainly building toward these
+			</a>
+		</span>
+		<!-- <div style="position:absolute;"> <-- building toward these </div> -->
+		<ul type="square">
+			<li type="square">Old video game consoles</li>
+			<li>Web-based games</li>
+			<li>Other???</li>
+		</ul>
+	</li>
+
+	<li>Videos</li>
+	<li>Music</li>
+	</ul>
+</p>
+
+<p>
+	Also working on non-dream-related projects in those media.
+</p>
+<p>
+	Thanks for taking a look ☺
+</p>
+
+<br>
+<br>
+<br>
+
+<div style="max-width: 30em;display:flex;align-content:center;justify-content:space-around;">
+<a href="blog.html">“Blog” & Notes</a>
+<a href="https://dream-threshold.itch.io/">itch.io</a>
 </div>
 
+<br>
 <iframe id="anim" src="media/piece20240811.html" style="display: none; border:none; height: 250px; "></iframe>
 
-<input id="animbtn" type="button"  onclick="toggleAnim()" value="(Show animation)" />
+<!-- <input id="animbtn" type="button"  onclick="toggleAnim()" value="(Show animation)" /> -->
+<a id="animbtn" style="display: block; cursor: pointer;" onclick="toggleAnim()">[ Show animation ]</a>
+
+</div>
 
 </body>
 </html>

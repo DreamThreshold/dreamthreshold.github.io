@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dream Threshold Blog</title>
+<meta charset="UTF-8">
+<style>
+*{
+  margin: 0;
+  padding: 0;
+
+}
+
+body{
+
+	font-size: 130%;
+	color: #aaffaa;
+	background: #230023;
+}
+input{
+	background: #aaffaa;
+	color: #230023;
+	border: none;
+	border-radius: 5px;
+	margin: 5px;
+	font-size: 60%;
+	font-family: serif;
+}
+div{
+}
+
+.blogEntry{
+
+    margin: 2em;
+    padding: 1em;
+    max-width: 40em;
+    box-shadow: 1em 1em 0px #000;
+}
+
+.blogHeader{
+  margin: -1em;
+  padding: 1em;
+  padding-bottom: 0;
+}
+
+.blogContent{
+  margin-top: 1em;
+  padding-top: 1em;
+  overflow: hidden;
+
+}
+
+td{
+  margin: 1em;
+  padding-right: 1em;
+}
+ul{
+  margin-left:1.5em;
+}
+
+h1{
+  margin:1em;
+}
+
+img{
+  max-width: 100%;
+    margin-top: 1em;
+}
+
+figcaption{
+  font-style: italic;
+}
+p{
+  margin-top: 1em;
+}
+</style>
+<script>
+function toggleAnim() {
+	console.log("within toggle anim()");
+	let anim = document.getElementById("anim");
+	let animbtn = document.getElementById("animbtn");
+	if (anim.style.display == "block"){
+		anim.style.display = "none";
+		console.log("display to none");
+		animbtn.value = "(Show)";
+	}
+	else{
+		anim.style.display = "block";
+		animbtn.value = "(Hide)";
+	}
+}
+
+
+function hideParent(e) {
+	// console.log(e);
+  let str1 = '[ ';
+  let str2 = ' ]';
+
+  if ( e.innerHTML == `${str1}-${str2}` ){
+    e.parentNode.style.height = "0em";
+    e.innerHTML = `${str1}+${str2}`;
+  }else{
+    e.parentNode.style.height = "";
+    e.innerHTML = `${str1}-${str2}`;
+  }
+
+
+}
+
+// function ae(el){
+//   let rnd = Math.random();
+//   console.log(rnd);
+//   //el.innerHTML = 'w';//rnd > 0.75 ? 'æ' : (rand > 0.5) ? 'a' : 'e';
+// }
+
+</script>
+</head>
+<body>
+
+<!-- <div style="position: sticky; right:0; top: 0;background: black; width: 100%;display: flex; justify-content: end;">
+  <i>
+    ☛
+    <a style="" href="index.html">home</a>
+    <a> hi</a>☔︎
+  </i>
+</div> -->
+
+<h1 style="text-shadow: 5px 5px 0px #030;">
+  <b>Dream Threshold’s “Blog”</b>
+</h1>
+<p style="margin: 2em;">
+  You are now behind The Scenes.
+
+</p>
+
+
+<div id="2" class="blogEntry" style="background: #101;margin-top:0;">
+
+<div class="blogHeader" style="background: #404;">
+  <h3>Behind the Scenes - “Floorboards” Game</h3>
+  <h4>2024-09-30</h4>
+</div>
+
+<div class="blogHeader" style="background: #404;">
+  <div style="display: grid;grid-template-columns: 1fr 2fr ">
+    <div style="height: 175px;grid-column: 1; grid-row: 1;position: relative;">
+      <img style="display:inline-block;margin:0;padding:0;position: absolute; bottom:0;" src="media/photoOfGBcam.png">
+    </div>
+    <div style="grid-column: 2; grid-row: 1;align-self: center;">
+      <h4 style=""><i>Game Boy Camera’s Fe<a id="2_ae" ">e</a>t of Clay</i><h3>
+    </div>
+  </div>
+</div>
+
+<div class="blogContent">
+  <a style="cursor: pointer;position: absolute; margin-top:-0.5em;" onclick="hideParent(this)">[ - ]</a>
+  <p>
+&emsp;All assets in this game were made with model(l)ing clay. Some were captured using the GB Camera.
+</p>
+
+<center><img src="media/GB_CAMERA_9_x2.png"></center>
+
+<p>
+&emsp;Complete with questionable background and lighting! After that, had to massage the pixels to reduce the number of unique tiles, mirror them, clean up, etc.
+</p>
+
+<center><img src="media/floorboardsTilesMassaged.png"></center>
+
+<p>
+&emsp;For comparison, the tasty clay “wooden planks”, in color (different layout):
+</p>
+
+<center>
+<img src="media/planks.jpg"><br>
+</center>
+
+<p>
+&emsp;Overall, lessons learned with the GB Camera...
+<br>
+
+<br>
+<div style="display: grid;grid-template-columns: 1fr 1fr ">
+  <div style="grid-column: 1; grid-row: 1;position: relative;">
+
+<u>Pros</u>
+<ul>
+<li>Great automatic dithering</li>
+<li>2bpp, ≤128x112px: ready for GB games</li>
+<li>Manual brightness & contrast controls</li>
+<li>Fun :)</li>
+<li>Auto-adjusting exposure</li>
+
+</ul><br>
+</div>
+<div style="grid-column: 2; grid-row: 1;position: relative;">
+<u>Cons</u>
+<ul>
+<li>Really sensitive to IR light</li>
+<li>Results often too “busy” to be clear/crisp/identifiable in a game</li>
+<li>Harder to do post-processing, compared to full-color, hi-res photos</li>
+<li>Auto-adjusting exposure...</li>
+</ul><br>
+
+</div>
+</div>
+
+
+ &emsp;It came down mostly to lighting. I’m sure I could get a better workflow with more trial and error. But for this project, I thought, “aww heck, I just wanna complete this thing in time”.
+ </p>
+
+ <p>&emsp;So the remaining assets were photographed with my phone, which then required using techniques in<br>
+<ul>
+<li type="1">brightness/contrast</li>
+<li type="a">downscaling</li>
+<li>color reduction, and</li>
+ <li type="square">dithering</li>
+</ul>
+to squish them down into GB conditions. They started out more like this:
+
+ </p>
+
+ <center>
+ <img src="media/clayModels.png">
+ </center>
+
+ <p>
+   &emsp;Now, you might be thinking that I had more in mind for the game, which I might return to later. And you’d be right.
+ </p>
+
+<p>
+ &emsp;But I wanted to finish something with GB Studio, and re-create this dream that’s been in my head for a while, so this was a good opportunity. Larger projects are planned - still much more to learn about the limitations and possibilites of GB graphics, and more!
+</p>
+
+<p>
+  &emsp;The game itself can be found <a href="https://dream-threshold.itch.io/floorboards">here on itch.io</a>. Thanks!
+</p>
+
+<center>
+<img src="media/marmot40.gif">
+</center>
+
+</div>
+</div>
+
+<div id="1" class="blogEntry" style="background: #101;margin-top:0;">
+
+<div class="blogHeader" style="background: #404;">
+  <h3>first</h3>
+  <h4>2024-09-30</h4>
+</div>
+
+<div class="blogContent">
+  <a style="cursor: pointer;position: absolute; margin-top:-0.5em;" onclick="hideParent(this)">[ - ]</a>
+  <p>bottom text</p>
+</div>
+</div>
+
+
+<script>
+
+// Post 2
+let rnd = Math.random();
+console.log(rnd);
+document.getElementById("2_ae").innerHTML = rnd > 0.95 ? 'æ' : (rnd > 0.5) ? 'a' : 'e';
+
+</script>
+
+</body>
+</html>
