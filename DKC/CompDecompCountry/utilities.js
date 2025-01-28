@@ -169,247 +169,312 @@ function palette2rgb(inp, offset=0){
 
 // sort of a wrapper
 function transpose(a){
-    return a.map((_,i) => a.map(r=>r[i]));
+  return a.map((_,i) => a.map(r=>r[i]));
+}
+
+// 2D matrix flips
+//NOTE: .reverse() acts IN-PLACE, while toReversed() does not.
+// however, toReversed is only recently supported, so it's best to avoid.
+// function fliplr(a){
+//   return a.map( row => row.toReversed() );
+// }
+// function flipud(a){
+//   return a.toReversed();
+// }
+
+function wrapColumns(a,columns){
+  b = [];
+  while(a.length) b.push(a.splice(0,columns));
+  return b;
+}
+function wrapRows(a,rows){
+  
+  b = Array.from(Array(rows).keys()).map(_=>[]);
+  for (let i=0; i<a.length; i++)
+    b[i%rows].push(a[i]);
+  return b;
+}
+function block(a){
+  // converts an M x N x m x n array to M*m x N*n
+  // assumes all sub-matrices are same size, at least their "heights" 
+  // (though M,N,m, and n can all be different from each other)
+  
+  let Mm = a.reduce((s,d,i)=>s+=d[0].length, 0);
+  let Nn = a[0].reduce((s,d,i)=>s+=d[0].length, 0);
+  b = Array.from(Array(Mm).keys()).map(_=>[]);
+
+  // oldschool loops
+  var brow = 0;
+  var submatrix;
+  for (let arow = 0; arow< a.length; arow++){
+    for (let acol = 0; acol< a[arow].length; acol++){
+      submatrix = a[arow][acol];
+      
+      for (let srow = 0; srow< submatrix.length; srow++)
+        for (let scol = 0; scol< submatrix[srow].length; scol++) 
+          b[brow + srow].push( submatrix[srow][scol]); // if (.constructor === Array) 
+        
+    }
+    brow += submatrix.length;
   }
-  function wrapColumns(a,columns){
-    b = [];
-    while(a.length) b.push(a.splice(0,columns));
-    return b;
-  }
-  function wrapRows(a,rows){
-    // kind of a lazy wrapper
-    return transpose( wrapColumns(a, rows) );
-  }
-  function block(a){
-    // converts an M x N x m x n array to M*n x N*n
-    // assumes all sub-arrays are same size 
-    // (though M,N,m, and n can all be different from each other)
-    // let i = a.length*a[0][0].length, j = a[0].length*a[0][0][0].length;
-    let Mm = a.reduce((s,d,i)=>s+=d[0].length, 0);
-    let Nn = a[0].reduce((s,d,i)=>s+=d[0].length, 0)
-    b = Array.from(Array(Mm).keys()).map(_=>[]);
-    let i = 0;
-    a.forEach((R,I)=>{
-      R.forEach( (subm,J) => subm.forEach((r,ii) => b[i+ii].push(...r) ) );
-      i+=R[0].length;
-    });
-    return b;
-  }
-   
-  function prepMetatile(mt,pal){
-    mt = {...mt}; // hopefully breaks reference because we'll be reversing and stuff
-    // first, create the merged 32x32 px 2d array.
-    // we will flip the sub tiles while here.
-    var px = [  [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], 
-                [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], ];
+
+  return b;
+}
   
-    //NOTE: subtile.vflip and hflip were already done by this point.
-    // if we needed to do them again for some reason:
-    // if (st.vflip) st.colorIndices.slice().reverse(); // already flipped in metatile object
-    // row = st.hflip ? row.slice().reverse() : row.slice(); // already flipped in metatile object
-  
-    mt.metatile.forEach( (st,sti)=>{
-      let p = (st.paletteIndex<<4); // *16
-      let stro = (sti>>2)<<3; // 0, 8, 16, or 24
-      st.colorIndices.forEach( (row,ri) => px[stro+ri].push( ...row.map(co=>pal[p+co]) ) );
-    });
-    if (mt.vflip) px.reverse();
-    if (mt.hflip) px.forEach((d,i)=>px[i]=d.slice().reverse());
-    return px;
-  }
-  // prepMetatile(mts[0],pall);
-  
-  //
-  function metatile(tiles, tilemap32){
-  
-    console.log(`Indexing metatiles...`);
-    var tl = 8; // good placeholder for future...?
-  
-    var word = 0;
-    var vflip = 0;
-    var hflip = 0;
-    var strow, stcof, rof, cof;
-    var metatiles = [];  //TODO: modify so we initialize as one X x m x n array of zeros?
-    var metatilesObj = [];
-    var metatile;
-    var overflows = [];
-    let mtstr = [ ["","","",""],["","","",""],["","","",""],["","","",""]]; //HACK: not very clean
-    let mtidx = 0;
-    let metatileObj = [];
-    let stobj = {paletteIndex: 0, colorIndices: zeros(8,8)};
-    let stobjs = [];
-  
-    for ( let idx = 0; idx < tilemap32.length; idx+=2 ){
-  
-      mtidx = idx>>5; // same as floor dividing by 32
-      // if starting the next metatile:
-      if ( (((idx/2)) % 16 == 0) )  {
-        // console.log(`Metatile ${idx/32}`);
-        metatile = zeros(32, 32); // initially filled with zeros
-        stobjs = [];
-      }
-  
-      // Get the next 2 bytes, treat this as a word.
-      // This word is the starting address within the existing OUTPUT data
-      // from which to extract <detail> number of bytes
-      // word = tilemap32[idx+1] | (tilemap32[idx] << 8); // not swapped
-      word = tilemap32[idx] | (tilemap32[idx+1] << 8); // swapped
-      // vh?t tttt tttt tttt // nope
-      // vhPp pptt tttt tttt // yep
-      vflip = (0x8000 & word) >> 15; // leftmost bit of the word (bit 0)
-      hflip = (0x4000 & word) >> 14; // second leftmost bit (bit 1)
-      prior = (0x2000 & word) >> 13; // bit 2
-      palet = (0x1c00 & word) >> 10; // bit 3-5
-      tilex = (0x03ff & word); // 10 rightmost bits (bits 6-15)
-  
-  
-      // Get the row offset and column offset associated with
-      // this submatrix/block within the metatile.
-      // divide by 2 because each tile is represented by 2 bytes
-      // floor divide by 4 (aka >> 2) and mod 4
-  
-      // get the 8x8 "subtile" indices
-      strof = (( ((idx/2)%16)>>2 ));
-      stcof = ((idx/2) %4);
-      strof = Math.floor( ((idx/2)%16)/4 );
-      mtstr[strof][stcof] = `${vflip},${hflip},${palet}`;
-  
-      // stcof = ((idx/2) %4)
-      // now multiply that by the number of pixels in a subtile (usually 8)
-      rof = tl*strof;
-      cof = tl*stcof;
-  
-      // [["1","2"],["3","4"]].reduce((sum,d) => sum+="\n"+d.join(" "),"")
-      // [["1","2"],["3","4"]].map((d) => d.join(" ")).join("\n")
-  
-      // console.log(`\nidx ${idx} (${strof},${stcof}): ${hex(word,4)} / ${binar(word,16)}\t  ${tileIndex}\t  /2=${tileIndex/2}`);
-      // console.log(`(tile index ${(tiles[tileIndex])})`);
-  
-      // for ( let row = vflip ? 7 : 0; vflip ?( row > -1) : (row < 8); vflip ? row-- : row++){
-      var tilestr = ``;
-      var rowstr;
-  
-      stobjs.push( {
-        paletteIndex: palet,
-        colorIndices: zeros(8,8),
-        tileIndex: tilex,
-        vflip: vflip,
-        hflip: hflip
-      } );
-  
-      for ( let row = 0; row < tl;  row++){
-        rowstr = ``;
-        for ( let col = 0; col < tl;  col++){
-          0;
-          // rowstr += `${hex(tileIndex,4).slice(1)} `;
-          // rowstr += ( `${rof + row},${cof + col}|${vflip?7-row:row},${hflip?7-col:col}  `);
-  
-          // index backwards from the end, if vflip and/or hflip:
-          // console.log([hex(word,4), binar(word,16), binar(tileIndex,16), vflip?7-row:row, hflip?7-col:col]);
-          if (tiles[tilex]){
-            // console.log(`Tile inde xis ok. rof + row: ${rof + row}; cof + col ${cof + col}`);
-  
-            metatile[rof + row][cof + col] = tiles[tilex][vflip?7-row:row][hflip?7-col:col];
-            stobjs[stobjs.length-1].colorIndices[row][col] = tiles[tilex][vflip?7-row:row][hflip?7-col:col];
-  
-          }
-  
-          else{
-            0;
-            overflows.push(tilex)
-            // console.log(`Tile index too big!! rof + row: ${rof + row}; cof + col ${cof + col}`);
-          };
+function prepMetatile(mt, pal){
+  mt = {...mt}; // hopefully breaks reference because we'll be reversing and stuff
+  // first, create the merged 32x32 px 2d array.
+  // we will flip the sub tiles while here.
+  var px = [  [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], 
+              [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], ];
+
+  //NOTE: subtile.vflip and hflip were already done by this point.
+  // if we needed to do them again for some reason:
+  // if (st.vflip) st.colorIndices.slice().reverse(); // already flipped in metatile object
+  // row = st.hflip ? row.slice().reverse() : row.slice(); // already flipped in metatile object
+
+  mt.metatile.forEach( (st,sti)=>{
+    let p = (st.paletteIndex<<4); // *16
+    let stro = (sti>>2)<<3; // 0, 8, 16, or 24
+    st.colorIndices.forEach( (row,ri) => px[stro+ri].push( ...row.map(co=>pal[p+co]) ) );
+  });
+  if (mt.vflip) px.reverse();
+  if (mt.hflip) px.forEach((d,i)=>px[i]=d.slice().reverse());
+  return px;
+}
+// prepMetatile(mts[0],pall);
+
+//
+function metatile(tiles, tilemap32){
+
+  console.log(`Indexing metatiles...`);
+  var tl = 8; // good placeholder for future...?
+
+  var word = 0;
+  var vflip = 0;
+  var hflip = 0;
+  var strow, stcof, rof, cof;
+  var metatiles = [];  //TODO: modify so we initialize as one X x m x n array of zeros?
+  var metatilesObj = [];
+  var metatile;
+  var overflows = [];
+  let mtstr = [ ["","","",""],["","","",""],["","","",""],["","","",""]]; //HACK: not very clean
+  let mtidx = 0;
+  let metatileObj = [];
+  let stobj = {paletteIndex: 0, colorIndices: zeros(8,8)};
+  let stobjs = [];
+
+  var stCounts = [];
+  for (let ti in tiles) stCounts.push( 0 ); // more reliable than fills?
+
+  for ( let idx = 0; idx < tilemap32.length; idx+=2 ){
+
+    mtidx = idx>>5; // same as floor dividing by 32
+    // if starting the next metatile:
+    if ( (((idx/2)) % 16 == 0) )  {
+      // console.log(`Metatile ${idx/32}`);
+      metatile = zeros(32, 32); // initially filled with zeros
+      stobjs = [];
+    }
+
+    // Get the next 2 bytes, treat this as a word.
+    // This word is the starting address within the existing OUTPUT data
+    // from which to extract <detail> number of bytes
+    // word = tilemap32[idx+1] | (tilemap32[idx] << 8); // not swapped
+    word = tilemap32[idx] | (tilemap32[idx+1] << 8); // swapped
+    // vh?t tttt tttt tttt // nope
+    // vhPp pptt tttt tttt // yep
+    vflip = (0x8000 & word) >> 15; // leftmost bit of the word (bit 0)
+    hflip = (0x4000 & word) >> 14; // second leftmost bit (bit 1)
+    prior = (0x2000 & word) >> 13; // bit 2
+    palet = (0x1c00 & word) >> 10; // bit 3-5
+    tilex = (0x03ff & word); // 10 rightmost bits (bits 6-15)
+    stCounts[tilex]++;
+
+    // Get the row offset and column offset associated with
+    // this submatrix/block within the metatile.
+    // divide by 2 because each tile is represented by 2 bytes
+    // floor divide by 4 (aka >> 2) and mod 4
+
+    // get the 8x8 "subtile" indices
+    strof = (( ((idx/2)%16)>>2 ));
+    stcof = ((idx/2) %4);
+    strof = Math.floor( ((idx/2)%16)/4 );
+    mtstr[strof][stcof] = `${vflip},${hflip},${palet}`;
+
+    // stcof = ((idx/2) %4)
+    // now multiply that by the number of pixels in a subtile (usually 8)
+    rof = tl*strof;
+    cof = tl*stcof;
+
+    // [["1","2"],["3","4"]].reduce((sum,d) => sum+="\n"+d.join(" "),"")
+    // [["1","2"],["3","4"]].map((d) => d.join(" ")).join("\n")
+
+    // console.log(`\nidx ${idx} (${strof},${stcof}): ${hex(word,4)} / ${binar(word,16)}\t  ${tileIndex}\t  /2=${tileIndex/2}`);
+    // console.log(`(tile index ${(tiles[tileIndex])})`);
+
+    // for ( let row = vflip ? 7 : 0; vflip ?( row > -1) : (row < 8); vflip ? row-- : row++){
+    var tilestr = ``;
+    var rowstr;
+
+    stobjs.push( {
+      paletteIndex: palet,
+      colorIndices: zeros(8,8),
+      tileIndex: tilex,
+      vflip: vflip,
+      hflip: hflip
+    } );
+
+    for ( let row = 0; row < tl;  row++){
+      rowstr = ``;
+      for ( let col = 0; col < tl;  col++){
+        0;
+        // rowstr += `${hex(tileIndex,4).slice(1)} `;
+        // rowstr += ( `${rof + row},${cof + col}|${vflip?7-row:row},${hflip?7-col:col}  `);
+
+        // index backwards from the end, if vflip and/or hflip:
+        // console.log([hex(word,4), binar(word,16), binar(tileIndex,16), vflip?7-row:row, hflip?7-col:col]);
+        if (tiles[tilex]){
+          // console.log(`Tile inde xis ok. rof + row: ${rof + row}; cof + col ${cof + col}`);
+
+          metatile[rof + row][cof + col] = tiles[tilex][vflip?7-row:row][hflip?7-col:col];
+          stobjs[stobjs.length-1].colorIndices[row][col] = tiles[tilex][vflip?7-row:row][hflip?7-col:col];
+
         }
-        tilestr+=`${rowstr}\n`;
+
+        else{
+          0;
+          overflows.push(tilex)
+          // console.log(`Tile index too big!! rof + row: ${rof + row}; cof + col ${cof + col}`);
+        };
       }
-  
-      // console.log(tilestr);
-      // console.log(metatile);
-  
-      // push this if we're on the last of the 16 tiles.
-      if ( (((idx/2)+1) % 16 == 0) )  {
-        // metatiles.push( metatile ); old method, didn't include palette indices
-        metatilesObj.push(stobjs);
-        // console.log(mtstr);
-        // console.log(`Metatile ${mtidx}:\n${mtstr.map((d) => d.join(" ")).join("\n")}`);
-      }
-  
+      tilestr+=`${rowstr}\n`;
     }
-  
-    // console.log(`Metatile: overflows from available tiles (${overflows.length} total).`);
-    // console.log(overflows);
-  
-    // return metatiles;
-    return metatilesObj;
-  
-  
-  }
-  
-  
-  function levelMap(metatiles, levelmetatiles){
-  
-    console.log(`Indexing level map...`);
-    var tl = 8; // good placeholder for future...?
-  
-    var word = 0;
-    var vflip = 0;
-    var hflip = 0;
-  
-    let overflows = [];
-    let levelobjs = [];
-  
-  
-    for ( let idx = 0; idx < levelmetatiles.length; idx+=2 ){
-  
-      // Get the next 2 bytes, treat this as a word.
-      // word = levelmetatiles[idx+1] | (levelmetatiles[idx] << 8); // not swapped
-      word = levelmetatiles[idx] | (levelmetatiles[idx+1] << 8); // swapped
-      // vh?t tttt tttt tttt // nope
-      // vhPp pptt tttt tttt // yep
-      vflip = (0x8000 & word) >> 15; // leftmost bit of the word (bit 0)
-      hflip = (0x4000 & word) >> 14; // second leftmost bit (bit 1)
-      prior = (0x2000 & word) >> 13; // bit 2 ...?
-      tilex = (0x1fff & word); // 13 rightmost bits (bits 4-15)
-  
-      if (metatiles[tilex]){
-        //TODO: would this cause an issue because we're sort of passing by reference...?
-        levelobjs.push( { metatile: metatiles[tilex], vflip: vflip, hflip: hflip} );
-      }
-      else{
-        overflows.push(tilex);
-      }
-  
+
+    // console.log(tilestr);
+    // console.log(metatile);
+
+    // push this if we're on the last of the 16 tiles.
+    if ( (((idx/2)+1) % 16 == 0) )  {
+      // metatiles.push( metatile ); old method, didn't include palette indices
+      metatilesObj.push(stobjs);
+      // console.log(mtstr);
+      // console.log(`Metatile ${mtidx}:\n${mtstr.map((d) => d.join(" ")).join("\n")}`);
     }
-  
-    // console.log(`Level Metatiles: overflows from available tiles (${overflows.length} total):`);
-    // console.log(overflows);
-  
-    // return metatiles;
-    return levelobjs;
-  
+
   }
+
+  // save the counts
+  for (let i=0; i<metatilesObj.length; i++){
+    for (let j=0; j<16; j++){
+      metatilesObj[i][j].tileIndexCount = stCounts[metatilesObj[i][j].tileIndex];
+    }
+  }
+
+  // console.log(`Metatile: overflows from available tiles (${overflows.length} total).`);
+  // console.log(overflows);
+
+  // return metatiles;
+  return metatilesObj;
+
+
+}
+
+
+function levelMap( metatiles, levelmetatiles ){
+
+  console.log(`Indexing level map...`);
+  // console.log(metatiles);
+  // console.log(levelmetatiles);
+
+  var tl = 8; // good placeholder for future...?
+
+  var word = 0;
+  var vflip = 0;
+  var hflip = 0;
+
+  let overflows = [];
+  let levelobjs = [];
+
+  var mtCounts = [];
+  for (let mi in metatiles) mtCounts.push( 0 ); // more reliable than fills?
+  
+
+
+  for ( let idx = 0; idx < levelmetatiles.length; idx+=2 ){
+
+    // Get the next 2 bytes, treat this as a word.
+    // word = levelmetatiles[idx+1] | (levelmetatiles[idx] << 8); // not swapped
+    word = levelmetatiles[idx] | (levelmetatiles[idx+1] << 8); // swapped
+    // vh?t tttt tttt tttt // nope
+    // vhPp pptt tttt tttt // yep
+    vflip = (0x8000 & word) >> 15; // leftmost bit of the word (bit 0)
+    hflip = (0x4000 & word) >> 14; // second leftmost bit (bit 1)
+    prior = (0x2000 & word) >> 13; // bit 2 ...?
+    tilex = (0x1fff & word); // 13 rightmost bits (bits 4-15)
+
+    mtCounts[tilex]++;
+    
+    
+
+    if (metatiles[tilex]){
+      //TODO: would this cause an issue because we're sort of passing by reference...?
+      var rawPixels = metatiles[tilex].rawPixels.slice();
+      if (vflip) rawPixels.reverse();
+      if (hflip) rawPixels.forEach((d,i)=>rawPixels[i]=d.slice().reverse()); // weird but works?
+      
+      levelobjs.push( { 
+        metatile: metatiles[tilex], 
+        metatileIndex: tilex,
+        priority: prior,
+        vflip: vflip, 
+        hflip: hflip,
+        rawPixels: rawPixels
+      } );
+    }
+    else{
+      overflows.push(tilex);
+    }
+
+  }
+
+  
+  // save the counts
+  for (let i=0; i<levelobjs.length; i++)
+    levelobjs[i].metatileIndexCount = mtCounts[levelobjs[i].metatileIndex];
+  
+
+  // console.log(`Level Metatiles: overflows from available tiles (${overflows.length} total):`);
+  // console.log(overflows);
+
+  // return metatiles;
+  return levelobjs;
+
+}
 
 // canvas display functions.
 // could be moved to another file...?
-function displayRaw(dat, parent, sc=1){
+function displayRaw(dat, parent=undefined, sc=1){
   
     // console.log(dat);
     var canvas = document.createElement("canvas");
     // canvas.id = "canvas";
-    canvas = parent.appendChild(canvas);
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
+    if (parent) {
+      canvas = parent.appendChild(canvas);
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+    }
     
-    var w = dat.length;
-    var h = dat[0].length;
-  
-    canvas.width = sc * w;
+    var h = dat.length;
+    var w = 0;
+    dat.forEach( row => { if (row.length>w) w = row.length; } );
+    canvas.width = sc * w; // placeholder, might be overwritten
     canvas.height = sc * h;
   
     var ctx = canvas.getContext("2d");
   
     for (let rowIndex = 0; rowIndex < dat.length; rowIndex++){
-    
+      // if ( dat[rowIndex].length > w) w = dat[rowIndex].length;
       for (let columnIndex = 0; columnIndex < dat[rowIndex].length; columnIndex++){
   
         // let fill = "#"+pal[ dat[tileIndex][rowIndex][columnIndex] ].map(d => hex(d)).join("")+"ff";
@@ -421,6 +486,8 @@ function displayRaw(dat, parent, sc=1){
         // console.log([rowIndex*sc, tileIndex*8*sc + rowIndex*sc, sc, sc]);
       }
     }
+
+    // canvas.width = sc * w;
   
     return canvas;
 }

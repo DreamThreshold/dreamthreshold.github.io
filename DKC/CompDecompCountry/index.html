@@ -66,8 +66,14 @@
 
   <div class="main" id="main">
     <!-- <div id="animationBottom" class="animationBottom"></div> -->
-    <div id="navbar"><h4><i style="padding-left:5ch;">Comp / Decomp Country</i></h4></div>
-    <div id="panelgrid"></div>
+    <div id="navbar">
+      <h4><i style="padding-left:5ch;">Comp / Decomp Country</i></h4>
+    </div>
+
+    <div id="workspace_1" class="workspace">
+      <div id="panelgrid_1" class="panelgrid"></div>
+      <div id="panel_links_1" class="panel_links"></div>
+    </div>
 
   </div>
 
@@ -88,40 +94,159 @@
 
 
 
+// note: UImodel superseded by Workspace
+// class UImodel {
+//   constructor(grid, panelsParams, name=null ) {
 
-class UImodel {
-  constructor(grid, panelsParams, name=null ) {
+//     this.grid = grid;
+//     this.workspace = this.grid.parentNode;
+//     this.panels = [];
+
+//     for (let i = 0; i<panelsParams.length; i++){
+//         //HACK: surely a better way to do this but whatever
+//         if ( panelsParams[i][0] == "textDescription") {
+//           this.panels.push( new TextPanel(this,
+//             panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
+//             panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
+//             panelsParams[i][6], panelsParams[i][7] )
+//           );
+//           continue;
+//         }
+//         if ( panelsParams[i][0] == "fileIn") {
+//           this.panels.push( new FilePanel(this,
+//             panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
+//             panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
+//             panelsParams[i][6], panelsParams[i][7] )
+//           );
+//           continue;
+//         }
+//         this.panels.push( new Panel(this,
+//             panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
+//             panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
+//             panelsParams[i][6], panelsParams[i][7] )
+//         );
+
+//     }
+
+//     this.name = name;
+//     this.sources = []; // will contain source data from files
+//     this.links = [];
+
+//     // perform the linking of panels
+//     // for (let panel of this.panels){
+//     //     for (let link of panel.links){
+//     //         console.log(`Pushing link: [${link.name}] --> [${panel.name}]`);
+//     //         link.nexts.push(panel);
+//     //     }
+//     // }
+    
+//     for (let panel of this.panels) 
+//       for (let link of panel.links)
+//         if (link)
+//           link.nexts.push(panel);
+    
+
+//     this.workspace.setAttribute('data-draggable', "true");
+//     this.assignDrag();
+    
+//   }
+//   addPanel(){
+
+//   }
+//   addLink( link ){
+//     // actually not much is done here, it's mostly done by Link constructor...
+//   }
+  
+//   assignDrag(){
+//     // Drag the panel around by grabbing its header
+//     var element = this.workspace;
+//     var deltaX = 0, deltaY = 0, startX = 0, startY = 0, left, top;
+
+//     let dragDiv = document.getElementById("main"); // should allow dragging from anywhere
+//     dragDiv.addEventListener("mousedown", (event) => {
+//       // if (!event.ctrlKey) return 1;
+//       if (!event.metaKey) return 1;
+//       event = event || window.event;
+//       event.preventDefault();
+//       startX = event.clientX;
+//       startY = event.clientY;
+//       document.onmouseup = dragClose;
+//       document.onmousemove = dragMove;
+//       console.log("drag: mouse down");
+//       // panel.sortZ();
+      
+//     });
+
+//     function dragMove(event){
+//       event = event || window.event;
+//       event.preventDefault();
+
+//       if (element.getAttribute('data-draggable')=="false") return 0;
+
+//       deltaX = startX - event.clientX;
+//       deltaY = startY - event.clientY;
+//       startX = event.clientX;
+//       startY = event.clientY;
+
+//       left = element.offsetLeft - deltaX;
+//       element.style.left = `${left}px`;
+//       element.setAttribute('data-user-left', left);
+
+//       // top = Math.max(element.offsetTop - deltaY, 0);
+//       top = element.offsetTop - deltaY;
+//       console.log(`element.offsetTop ${element.offsetTop} - deltaY ${deltaY}`);
+//       element.style.top = `${top}px`;
+//       element.setAttribute('data-user-top', top);
+
+      
+//       console.log("drag: moved");
+
+//     }
+
+//     function dragClose(event){
+//       document.onmouseup = null;
+//       document.onmousemove = null;
+//     }
+
+//   }
+// }
+
+
+// note: UImodel superseded by Workspace
+class Workspace {
+  constructor(grid, name=null ) {
 
     this.grid = grid;
+    this.workspace = this.grid.parentNode;
     this.panels = [];
 
-    for (let i = 0; i<panelsParams.length; i++){
-        //HACK: surely a better way to do this but whatever
-        if ( panelsParams[i][0] == "textDescription") {
-          this.panels.push( new TextPanel(this,
-            panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-            panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-            panelsParams[i][6], panelsParams[i][7] )
-          );
-          continue;
-        }
-        if ( panelsParams[i][0] == "fileIn") {
-          this.panels.push( new FilePanel(this,
-            panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-            panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-            panelsParams[i][6], panelsParams[i][7] )
-          );
-          continue;
-        }
-        this.panels.push( new Panel(this,
-            panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-            panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-            panelsParams[i][6], panelsParams[i][7] )
-        );
+    // for (let i = 0; i<panelsParams.length; i++){
+    //     //HACK: surely a better way to do this but whatever
+    //     if ( panelsParams[i][0] == "textDescription") {
+    //       this.panels.push( new TextPanel(this,
+    //         panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
+    //         panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
+    //         panelsParams[i][6], panelsParams[i][7] )
+    //       );
+    //       continue;
+    //     }
+    //     if ( panelsParams[i][0] == "fileIn") {
+    //       this.panels.push( new FilePanel(this,
+    //         panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
+    //         panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
+    //         panelsParams[i][6], panelsParams[i][7] )
+    //       );
+    //       continue;
+    //     }
+    //     this.panels.push( new Panel(this,
+    //         panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
+    //         panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
+    //         panelsParams[i][6], panelsParams[i][7] )
+    //     );
 
-    }
+    // }
 
-    this.name = name;
+    this.name = name ? name : "Workspace_"+Date.now();
     this.sources = []; // will contain source data from files
     this.links = [];
 
@@ -132,81 +257,332 @@ class UImodel {
     //         link.nexts.push(panel);
     //     }
     // }
-    for (let panel of this.panels)
-        for (let link of panel.links)
-            link.nexts.push(panel);
+    
+    // for (let panel of this.panels) 
+    //   for (let link of panel.links)
+    //     if (link)
+    //       link.nexts.push(panel);
+    
+
+    this.workspace.setAttribute('data-draggable', "true");
+    this.assignDrag();
     
   }
-  addLink(){
+  addPanel(){
 
   }
+  addLink( link ){
+    // actually not much is done here, it's mostly done by Link constructor...
+    return link;
+  }
+  
+  assignDrag(){
+    // Drag the panel around by grabbing its header
+    var element = this.workspace;
+    var deltaX = 0, deltaY = 0, startX = 0, startY = 0, left, top;
+
+    let dragDiv = document.getElementById("main"); // should allow dragging from anywhere
+    dragDiv.addEventListener("mousedown", (event) => {
+      // if (!event.ctrlKey) return 1;
+      if (!(event.metaKey || event.ctrlKey) ) return 1;
+      
+      event = event || window.event;
+      event.preventDefault();
+      startX = event.clientX;
+      startY = event.clientY;
+      document.onmouseup = dragClose;
+      document.onmousemove = dragMove;
+      // console.log("drag: mouse down");
+      // panel.sortZ();
+      
+    });
+
+    function dragMove(event){
+      event = event || window.event;
+      event.preventDefault();
+
+      if (element.getAttribute('data-draggable')=="false") return 0;
+
+      deltaX = startX - event.clientX;
+      deltaY = startY - event.clientY;
+      startX = event.clientX;
+      startY = event.clientY;
+
+      left = element.offsetLeft - deltaX;
+      element.style.left = `${left}px`;
+      element.setAttribute('data-user-left', left);
+
+      // top = Math.max(element.offsetTop - deltaY, 0);
+      top = element.offsetTop - deltaY;
+      element.style.top = `${top}px`;
+      element.setAttribute('data-user-top', top);
+
+      
+      // console.log("drag: moved");
+
+    }
+
+    function dragClose(event){
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+
+  }
+}
+
+// quick and dirty "collapser" feature.
+function hideParent(e) {
+	// console.log(e);
+  let str1 = '';
+  let str2 = '';
+  let max = '+';
+  let min = '-';
+  if ( e.innerHTML == `${str1}${min}${str2}` ){
+    e.parentNode.style.height = "1.5em";
+    e.parentNode.style.overflowY = "clip";
+    e.innerHTML = `${str1}${max}${str2}`;
+  }else{
+    e.parentNode.style.height = "";
+    e.innerHTML = `${str1}${min}${str2}`;
+  }
+
+
 }
 
 //
 //   Create the ui and panels
 //
 
-aboutText = `\
-              <div class="text_content" >
-                <p>
-                  <b>Hello!</b> This app compresses and decompresses graphics data from DKC, and provides visualizations that can help in ROM hacking.
-                  <br><br>
-                  It provides several panels with different applications:
-                  <ul>
-                    <li> <b>Hex Viewer</b>. View hexadecimal data from game files. If viewing a processed set of data, such as decompressed or compressed data, you can download it from the "☰" menu.<br>
-                      <ul>
-                        <li> After uploading valid compressed data, if there is a hex viewer panel for <i>de</i>compressed data, you can navigate to its "☰" menu and click "Animate Decompression Process". This will show you a visualization of the process, with data bytes given different shades to correspond to the decompression mode used. These graphics files contain many spans/blocks of compressed data, and each span has one of several possible compression/encoding modes, and usually an operand as well.</li>
-                      </ul>
-                    </li>
-                    <li> <b>Bitplane Viewer</b>. Visualize SNES 4 bit per pixel graphics tiles and their weird intertwined format.<br>More details...
-                      <ul>
-                        <li> Upload a file to "Input - Compressed Data" to get started. This expects a .bin file that you might get in a disassembly of the game, usually in the "graphics/compressed" folder. Or, copy the hex values from the relevant offset of your ROM to a new file.</li>
-                        <li> After uploading valid data, the bitplane diagram should appear, showing the first tile. In the diagram, you can see how the 32 bytes of data comprise the four bitplanes. Each pixel or "cell" of the 8x8 bitplane is stacked with those of the other bitplanes to form a color index of between 0 and 15 (0x0 to 0xF) for each pixel of the tile. For example, if the bitplanes read "1 0 1 0" from front to back for a given pixel, that pixel's index value will be "A".</li>
-                        <li> The bitplane diagram is a 3d model and can rotate when dragged. ctrl+scroll to zoom in or out.</li>
-                        <li> Click the "<" and ">" buttons near the top to flip through the tiles. Alternatively, if a tileset viewer panel is present, click a tile within that panel to show it in the bitplane viewer.</li>
-                      </ul>
-                    </li>
-                    <li> <b>Palette Viewer</b>. View color palettes used in the game's levels. Select a row of colors (16-color sub-palette) to assign it to the indexed tile in the bitplane viewer. <br>(Currently uses the following forumla: <br>SNES 5 bit color channel  ×  8  =  RGB 8 bit channel<br> ... there are multiple ways to convert the colors.)</li>
-                    <li> <b>Tileset Viewer</b>. View the 8x8 pixel tiles in their grayscale form, before they are assigned a color palette.</li>
-                    <li> <b>Metatiles Viewer</b>. View 32x32 pixel metatiles. Each metatile is composed of 4x4 tiles, 16 total. Each of the metatiles is built using an associated color sub-palette, and potentially horizontal and/or vertical flip; hover to view these details. Requires graphics tiles, palette, and then tilemap32 to be uploaded. Make sure your tilemap32 matches your 8x8 tiles: for example, don't use a foreground/background tilemap on layer 3 tiles, or vice versa. Mainly meant for FG/BG.</li>
-                    <li> <b>Level Map Viewer</b>. View level maps built from the metatiles. Currently only supports horizontal levels. Requires graphics tiles, palette, tilemap32, and then level map to be uploaded.</li>
-                  </ul>
-                  <br>
-                  Most features require uploading a file to the relevant file input panels on the page. Data will persist through page refreshes, but not page closes.
-                </p>
-                <br>
-                  Panels can be:<br>
-                  <ul>
-                      <li> moved around the page by dragging their headers</li>
-                      <li> resized by dragging the bottom right corner</li>
-                      <li> collapsed by clicking "˄" in the header</li>
-                      <li> and maximized by double clicking the header.</li>
-                    </ul>
-                  Some panels also have settings or other features hidden in the "☰" menu. You can zoom out of the page (usually ctrl+scroll) to have more space to organize your panels. Depending on the initial panels template, some panels may be hidden off-screen at first.
-  
-                <br><br>
-                <p>
-                  The app's first release was made to celebrate DKC's 30th anniversary. The goal is to de-mystify DKC hacking and to provide even more appreciation for what Rare developed in the 1990s. More features will continue to be added. Works best in a full screen window, tested most thoroughly with firefox. You can expect more features for visualizing, documenting, and hacking the DKC series soon. Thanks!
-                </p>
-                <br><br>
-                <p>
-                  Special thanks to the DKC Atlas community members and their previous work. In particular Kingizor's dkcomp program. In the future I will update this page with additional guides and resources, and their proper credits.
-                </p>
-                <br><br><br>
-                <p>
-                <b>Disclaimer</b>. This software is not official or supported by Nintendo, nor any other commercial entity. It is provided AS IS, and its use is at your own risk.
-                </p>
-              </div>`;
+let c0 = 2, c1 = 8, c2 = 16, c3=27-2;
+let cx = c2*1;
+let dx = cx+5;
+let d0 = c1-1, d1 = c2-1, d2=c3-1, d3=32;
+
+const workspace1 = new Workspace( document.getElementById("panelgrid_1") );
+this.links = [];
+
+// input and decompressor
+var inputPanel = new FilePanel(workspace1, 1,  3,    c0, d0,  "File: Compressed Gfx");
+var decompressPanel = new ChrDecompressPanel(workspace1, 3,  3,    c0, d0,  "Decompress");
+links.push( workspace1.addLink( new Link(inputPanel.outputPorts.out, decompressPanel.inputPorts.in) ) );
+
+// hex viewers for comp/decomp
+var compHexPanel = new HexPanel( workspace1,  1, 10, c1, d1,  "Hex View: Compressed Data"); // 1
+links.push( workspace1.addLink( new Link(inputPanel.outputPorts.out, compHexPanel.inputPorts.in) ) );
+var decompHexPanel = new HexPanel( workspace1,  10, 19, c1, d1,  "Hex View: Decompressed Data"); // 2
+links.push( workspace1.addLink( new Link(decompressPanel.outputPorts.out, decompHexPanel.inputPorts.in) ) );
+
+// bitplane viewer
+var bitplanePanel = new BitplanePanel( workspace1,   1, 12,    c2, d2, "View Bitplanes");
+links.push( workspace1.addLink( new Link(decompHexPanel.outputPorts.out, bitplanePanel.inputPorts.in) ) );
 
 
-// const ui = new UImodel( "main", document.getElementById("panelgrid") );
-// var inputPanel = ui.addNode( new FilePanel ("Input - Compressed Data"),          [1,  3,    c0, d0]  );
-// var compHexPanel = ui.addNode( new HexPanel ("Hex Viewer - Compressed Data"),          [1, 15,    c1, d1]  );
-// ui.addLink( new Link(inputPanel, compHexPanel) )
+// unbitplane and show tiles
+var unbitplanePanel = new UnbitplanePanel( workspace1,   13, 13,    c2, c2+3, "Unbitplane");
+links.push( workspace1.addLink( new Link(decompHexPanel.outputPorts.out, unbitplanePanel.inputPorts.in) ) );
+var tilesetViewer = new TilesetPanel( workspace1,  15, 19,   c2, d2-1,  "Tiles");
+links.push( workspace1.addLink( new Link( unbitplanePanel.outputPorts.out, tilesetViewer.inputPorts.in) ) );
 
+
+
+// palette
+var paletteInputPanel = new FilePanel(workspace1, 1,  3,    c3, c3+3,  "File: Palette");  //  3
+var pal2rgbPanel = new Palette2RGBPanel(workspace1,  1,  1,    c3+4, c3+3+4,  "Convert Palette to RGB");  //  3
+links.push( workspace1.addLink( new Link( paletteInputPanel.outputPorts.out, pal2rgbPanel.inputPorts.in) ) );
+
+var paletteViewer = new PalettePanel( workspace1,   3,  6,    c3, d3,  "Palette" ); // 4
+links.push( workspace1.addLink( new Link( pal2rgbPanel.outputPorts.out, paletteViewer.inputPorts.in) ) );
+
+// metatiles
+var metatileInputPanel = new FilePanel(workspace1,  7, 9,    c3, c3+3,  "File: Tilemap32 (Metatiles)");
+var buildMetatilesPanel = new BuildMetatilesPanel(workspace1,  7, 7,    c3+4, c3+3+4,  "Build Metatiles");
+// ["rgbPalette", "tilemap32", "unbitplanedTiles"]
+links.push( workspace1.addLink( new Link( metatileInputPanel.outputPorts.out, buildMetatilesPanel.inputPorts.tilemap32) ) );
+links.push( workspace1.addLink( new Link( unbitplanePanel.outputPorts.out, buildMetatilesPanel.inputPorts.unbitplanedTiles) ) );
+links.push( workspace1.addLink( new Link( pal2rgbPanel.outputPorts.out, buildMetatilesPanel.inputPorts.rgbPalette) ) );
+
+var metatilesViewer = new MetatilesPanel(workspace1, 9, 15,    c3, d3,  "Tilemap32 (Metatiles)");
+links.push( workspace1.addLink( new Link( buildMetatilesPanel.outputPorts.out, metatilesViewer.inputPorts.in) ) );
+
+// level map
+var levelmapInputPanel = new FilePanel(workspace1, 16,  18,    c3, c3+3,  "File: Level Map");
+var buildLevelMapPanel = new BuildLevelMapPanel(workspace1,  16, 16,    c3+4, c3+3+4,  "Build Level Map");
+// ["rgbPalette", "tilemap32", "unbitplanedTiles"]
+links.push( workspace1.addLink( new Link( levelmapInputPanel.outputPorts.out, buildLevelMapPanel.inputPorts.levelMap) ) );
+links.push( workspace1.addLink( new Link( buildMetatilesPanel.outputPorts.out, buildLevelMapPanel.inputPorts.metatileArray) ) );
+
+var levelMapViewer = new LevelMapPanel( workspace1,  18, 28,    c3, d3,  "Level Map");
+links.push( workspace1.addLink( new Link( buildLevelMapPanel.outputPorts.out, levelMapViewer.inputPorts.in) ) );
+
+
+// comp pipeline
+//
+// immediately compress
+var inputPanelC = new FilePanel( workspace1,     20, 22,    c0, d0+2,  "File: Uncompressed Data");
+var compressPanel = new ChrCompressPanel(workspace1,  20, 21,    c1+2, c1+4+2,  "Compress");
+links.push( workspace1.addLink( new Link( inputPanelC.outputPorts.out, compressPanel.inputPorts.in) ) );
+
+// show the compressed data
+var compressC = new HexPanel( workspace1,  20, 28,    c2, d2,  "Hex View: Newly Compressed Data" );
+links.push( workspace1.addLink( new Link( compressPanel.outputPorts.out, compressC.inputPorts.in) ) );
+
+/*
+// decompress again
+var decompressPanelC = new ChrDecompressPanel(workspace1,  22,  22,    c0, c0+3,  "Decompress");
+links.push( workspace1.addLink( new Link( compressPanel.outputPorts.out, decompressPanelC.inputPorts.in) ) );
+
+// show that decompressed data
+var decompressC = new HexPanel( workspace1,   24, 28,    c1, d1,  "Hex Viewer - Decompressed from compressed-by-this-app Data" );
+links.push( workspace1.addLink( new Link( decompressPanelC.outputPorts.out, decompressC.inputPorts.in) ) );
+//... and the tileset
+var unbitplanePanelC = new UnbitplanePanel( workspace1,  23, 24,    c2, c2+3, "Unbitplane");
+links.push( workspace1.addLink( new Link(decompressC.outputPorts.out, unbitplanePanelC.inputPorts.in) ) );
+var tilesetViewerC = new TilesetPanel( workspace1,  24, 28,   c2, d2-1,  "Tiles");
+links.push( workspace1.addLink( new Link( unbitplanePanelC.outputPorts.out, tilesetViewerC.inputPorts.in) ) );
+*/
+
+var compPipelineText = `\
+<div class="text_content" >
+  <p>This group of panels (16-18) represents a separate pipeline from the others above.</p>
+  <p>
+    Enter <u>un</u>compressed data to the file input above to compress it. 
+    In the compressed data hex viewer to the right, you can download the compressed data file from the "☰" menu.
+  </p>
+</div>`;
+var descriptionC = new TextPanel( workspace1,  23, 28,    c0, c1+4+2,  "About - Compression ", compPipelineText );
+
+
+
+let collapser = `<a style="cursor: pointer;position: absolute; left:-1em;" onclick="hideParent(this)">-</a>`;
+
+let panelTypes = [
+
+`<u>File Input</u><br> Upload a file, and it will automatically be processed in the next panel of the pipeline.<br>
+<ul>
+      <li> Uploaded data will persist through page refreshes (javascript session storage), but not page closes. </li>
+      <li> Data remains in your browser and is not sent anywhere. In fact, this app works without any internet connection if you download it locally! </li>
+      </ul>`,
+
+`<u>Hex Viewer</u><br> View hexadecimal data from game files. If viewing a processed set of data, such as decompressed or compressed data, you can download the data from the "☰" menu.<br>
+    <ul>
+      <li> Animating decompression: after uploading compressed data, go to the compressed data hex viewer's "☰" menu and click "Animate Decompression Process". This will play a visualization of the process, with data bytes given different shades to correspond to the compression mode used. More details on the compression scheme can be found <a href="#about_dkc1_compression">below</a>.</li>
+    </ul>
+  `,
+
+  `<u>Bitplane Viewer</u><br> Visualize SNES 4 bit per pixel graphics tiles and their weird intertwined format.
+    <ul>
+      <li> Upload a file to "Input - Compressed Data" to get started. This expects a .bin file that you might get in a disassembly of the game, usually in the "graphics/compressed" folder. Or, copy the hex values from the relevant offset of your ROM to a new file.</li>
+      <li> After uploading valid data, the bitplane diagram should appear, showing the first tile. In the diagram, you can see how the 32 bytes of data comprise the four bitplanes. Each pixel or "cell" of the 8x8 bitplane is stacked with those of the other bitplanes to form a color index of between 0 and 15 (0x0 to 0xF) for each pixel of the tile. For example, if the bitplanes read "1 0 1 0" from front to back for a given pixel, that pixel's index value will be "A".</li>
+      <li> The bitplane diagram is a 3d model and can rotate when dragged. ctrl+scroll to zoom in or out.</li>
+      <li> Click the "<" and ">" buttons near the top to flip through the tiles. Alternatively, if a tileset viewer panel is present, click a tile within that panel to show it in the bitplane viewer.</li>
+    </ul>`,
+
+  `<u>Palette Viewer</u><br> View color palettes used in the game's levels. Select a row of colors (16-color sub-palette) to assign it to the indexed tile in the bitplane viewer. 
+    <br>(Currently uses the following forumla: 
+    <br>SNES 5 bit color channel  ×  8  =  RGB 8 bit channel
+    <br> ... there are multiple ways to convert the colors.)
+    <br>You can download a PNG of the palette from the "☰" menu.<br>`,
+
+  `<u>Tileset Viewer</u><br> View the 8x8 pixel tiles in their grayscale form, before they are assigned a color palette.
+    <br>You can download a PNG of the tileset from the "☰" menu.<br>`,
+
+  `<u>Metatiles Viewer</u><br> View 32x32 pixel metatiles. Each metatile is composed of 4x4 tiles, 16 total. Each of the metatiles is built using an associated color sub-palette, and potentially horizontal and/or vertical flip; hover to view these details. Requires graphics tiles, palette, and then tilemap32 to be uploaded. Make sure your tilemap32 matches your 8x8 tiles: for example, don't use a foreground/background tilemap on layer 3 tiles, or vice versa. Mainly meant for FG/BG.
+    <br>You can download a PNG of the metatiles from the "☰" menu.<br>`,
+
+  `<u>Level Map Viewer</u><br> View level maps built from the metatiles. Currently only supports horizontal levels (so, no water levels, yet). Requires graphics tiles, palette, tilemap32, and then level map to be uploaded.
+    <br>Note that most "level maps" consist of all levels for a given archetype, like jungle levels, snow levels, etc. This includes bonus rooms.
+    <br>The "background" color is currently set to color 0 of the tiles' sub-palettes, instead of true transparent.
+    <br>You can download a PNG of the partial level map from the "☰" menu. Currently limited in width, for performance reasons.<br>`
+];
+
+let collapserBullet = `<a style="cursor: pointer;position: absolute; left:-1em;" onclick="hideParent(this)">-</a>`;
+let panelTypesMerged = `<b>Panel Types</b><br>`+panelTypes.reduce((s,d,i)=>s+=`<div style="position: relative;margin-left:2em;" >`+collapserBullet+d+`<br></div>`,``)+``;
+
+// Maybe hide this by default, or wait until we have a more established GUI before blabbing about its purpose...
+let verboseAboutThisApp = `
+<b>App Background</b><br>
+  The app's first release was made to celebrate DKC's 30<sup>th</sup> anniversary. The goal is to de-mystify DKC hacking and to provide even more appreciation for what Rare developed in the 1990s. 
+  <br><br>
+  There exist multiple editors and resources for the DKC series, already (though, nowhere near the depth of resources for SMW and other games). But if you're curious about how all this stuff <i>works</i>, it's tricky to comb through the assorted resources online and wrap your head around things. At least for me it was :) I like being able to play around with stuff, look at it in different ways, dive into the unique aspects like the custom compression, and trace the pipeline of data; I hope that sort of stuff can help other people more easily grasp DKC hacking as well. And, with a wacky user interface like this, I'm hoping users (and myself) can find a good workflow for unconventional hacks in the future.
+  <br><br>
+  More features will continue to be added. Works best in a full screen window, tested most thoroughly with firefox. You can expect more features for visualizing, documenting, and hacking the DKC series soon. Thanks!
+  <br><br>
+  Special thanks to the DKC Atlas community members and their previous work. In particular Kingizor's dkcomp program. In the future I will update this page with additional guides and resources, and their proper credits.
+  <br><br>
+  <b>Disclaimer</b>. This software is not official or supported by Nintendo, nor any other commercial entity. It is provided AS IS, and its use is at your own risk.
+`;
+let contact = `
+<b>Contact</b><br>
+Feel free to suggest features and point out bugs, it would be greatly appreciated! Even if you have some wacky idea for a feature you'd like to see.
+<br><br>
+Discord:<br>
+`;
+
+let paragraphs = [
+`<b>Hello!</b> <br>This app compresses and decompresses graphics data from DKC, and provides visualizations that can help in ROM hacking.
+<br><br>
+It provides several panels with different applications. Most panels are part of a pipeline that can show you the steps to get from raw data to images and other game assets.
+<br><br>
+To simply decompress DKC1 graphics, upload to panel 0 and download the result from panel 3's "☰" menu.
+<br><br>
+To compress a SNES tileset for use in DKC1, upload to panel 16 and download the result from panel 18's "☰" menu.`,
+panelTypesMerged,
+`<b>Panel User Interface</b><br>
+    Panels can be...<br>
+  <ul>
+      <li> moved around the page by dragging their headers</li>
+      <li> resized by dragging the bottom right corner</li>
+      <li> collapsed by clicking "˄" in the header</li>
+      <li> and maximized by double clicking the header.</li>
+    </ul>
+    <br>
+  Some panels also have settings or other features hidden in the "☰" menu; many will have a download option there. You can zoom out of the page (usually ctrl+scroll or cmd+scroll) to have more space to organize your panels. Depending on the initial workspace template, some panels may be hidden off-screen at first. ctrl+click or cmd+click and drag to move around the workspace of panels.
+
+<br><br>`,
+
+`<span id="about_dkc1_compression"><b>DKC1 Compression</b></span><br>
+  DKC1 uses a custom compression/decompression scheme. It consists of four possible modes:
+  <ol>
+    <li value="0"> Copy (basically, no compression)</li>
+    <li value="1"> Run-length encoding (RLE)</li>
+    <li value="2"> History (LZ-like)</li>
+    <li value="3"> Lookup table (LUT)</li>
+  </ol><br>
+  Compressed graphics tilesets contain a 64-word (128-byte) lookup table, and then many variable-length spans/blocks of compressed data. Each span begins with a command byte. The first two bits specify the mode (0 to 3), and the remaining 6 bits are an operand (which we'll often call <i>n</i>), often used as a count number. Following the command byte, there are usually more data bytes (Depends on the mode). <br><br>
+  Copy (mode 0) tells the decompressor to copy the next <i>n</i> bytes from input to output, verbatim. Not very efficient, obviously.<br><br>
+  RLE (mode 1) tells the decompressor to take the next byte, and write it to output <i>n</i> times.<br><br>
+  History (mode 2) tells the decompressor to take the next two bytes, swap them, and use this an an address within the <i>output</i> data from which to copy <i>n</i> bytes. This is similar to some LZ algorithms like LZ77, LZW, etc.<br><br>
+  LUT (mode 3) tells the decompressor to multiply <i>n</i> by two, and use this as an address within the beginning of the input (the lookup table) from which to copy a word (two bytes) to output. 
+  <br><br>
+  The decompressor starts at offset 128 of the input data, and decodes each span of compressed bytes. Eventually we get to our complete, decompressed graphics tiles. 
+  <br><br>
+  DKC2 and 3 used more advanced and ostensibly more efficient compression algorithms. Those will be supported in this app in the future, as well.`,
+
+`<b>App Background</b><br>
+  The app's first release was made to celebrate DKC's 30<sup>th</sup> anniversary. The goals of this app are <br>
+  <ul>
+    <li>de-mystify DKC hacking through interactive visualizations and other resources</li>
+    <li>provide editing tools in a new format, to spur creativity for DKC hacking</li>
+    <li>provide appreciation for the DKC series as whole, especially Rare's work</li>
+  </ul>
+  <br>
+  More features will continue to be added. Works best in a full screen window. Tested most thoroughly with firefox; many features probably will not work in internet explorer and old browser versions. You can expect more features for visualizing, hacking, and documenting the DKC series (and more) soon. Thanks!
+  <br><br>
+  Special thanks to the DKC Atlas community members and their previous work. In particular Kingizor's dkcomp program. In the future I will update this page with additional guides and resources, and their proper credits.
+  <br><br>
+  <b>Disclaimer</b>. This software is not official or supported by Nintendo, nor any other commercial entity. It is provided AS IS, and its use is at your own risk.
+`
+
+];
+
+aboutText2 = `<div class="text_content" >`+paragraphs.reduce((s,d,i)=>s+=`<div style="position: relative;margin-left:1em;" >`+collapser+`<p>`+d+`</p><br></div>`,``)+`</div>`;
+
+var aboutPanel = new TextPanel( workspace1,   5, 19,    c0, d0,  "About - App", aboutText2);
+
+/*
 
 // let c0 = 2, c1 = 11, c2 = 20, c3=29;
-let c0 = 1, c1 = 6, c2 = 16, c3=27-3;
+let c0 = 1, c1 = 8, c2 = 16, c3=27-3;
 let cx = c2*1;
 let dx = cx+5;
 let d0 = c1, d1 = c2, d2=c3, d3=33;
@@ -214,16 +590,19 @@ let d0 = c1, d1 = c2, d2=c3, d3=33;
 //              _, kind,                  rows        cols     name=null, link, content=''
 var inputPanel = ["fileIn",                1,  3,    c0, d0,  "Input - Compressed Data"];
 var compHexPanel = ["hexViewerComp",       1, 10,    c1, d1,  "Hex Viewer - Compressed Data", [0]]; // 1
-var paletteInputPanel = ["fileIn",         1,  3,    c3, d3,  "Input - Palette"];  //  2
-var paletteViewer = ["paletteViewer",      3,  6,    c3, d3,  "Palette", [2]]; // 3
-var decompHexPanel = ["hexViewer",        10, 19,    c1, d1,  "Hex Viewer - Decompressed Data", [0, 3, 1]]; // 4
-var bitplanePanel = ["bitplaneViewer",     1, 15,    c2, d2,  "Bitplane Viewer - Decompressed Data", [4, 3]]; // 5
-var tilesetViewer = ["tilesetViewer",     15, 19,    c2, d2-1,  "Tiles", [4, 3, 5]]; //  6   4, 3, 5
+
+var decompHexPanel = ["hexViewer",        10, 19,    c1, d1,  "Hex Viewer - Decompressed Data", [0, null, 1]]; // 2
+
+var paletteInputPanel = ["fileIn",         1,  3,    c3, d3,  "Input - Palette"];  //  3
+var paletteViewer = ["paletteViewer",      3,  6,    c3, d3,  "Palette", [3]]; // 4
+
+var bitplanePanel = ["bitplaneViewer",     1, 15,    c2, d2,  "Bitplane Viewer - Decompressed Data", [2, 4]]; // 5 hex view decomp, palettevwr
+var tilesetViewer = ["tilesetViewer",     15, 19,    c2, d2-1,  "Tiles", [2, 4, 5]]; //  6   4, 3, 5  hex view decomp, palette vwr, bitplane
 var metatilemapInputPanel = ["fileIn",     6,  8,    c3, d3,  "Input - Tilemap32 (Metatiles)"]; //  7
-var metatilesViewer = ["metatilesViewer",  8, 15,    c3, d3,  "Tilemap32 (Metatiles)", [3,6,7]]; // 8 pal viewer, tileset vwr, metatile input
+var metatilesViewer = ["metatilesViewer",  8, 15,    c3, d3,  "Tilemap32 (Metatiles)", [4,6,7]]; // 8 pal viewer, tileset vwr, metatile input
 var levelMapInputPanel = ["fileIn",       15, 17,    c3, d3,  "Input - Level Map"]; //  9
-var levelMapViewer = ["levelMapViewer",   17, 29,    c3, d3,  "Level Map", [3,8,9]]; // 10 paletteViewer, metatilesViewer, fileIn
-var description = ["textDescription",      3, 19,    c0, d0,  "About Comp/Decomp Country", null, aboutText]; // 11
+var levelMapViewer = ["levelMapViewer",   17, 29,    c3, d3,  "Level Map", [4,8,9]]; // 10 paletteViewer, metatilesViewer, fileIn
+var description = ["textDescription",      3, 19,    c0, d0,  "About - App", null, aboutText2]; // 11
 
 // for the Compression "pipeline"
 var compPipelineText = `\
@@ -236,13 +615,13 @@ var inputPanelC = ["fileIn",               20, 23,    c0, d0,  "Input - Uncompre
 var compressC = ["hexViewerCompressed",    20, 24,    c1, d1,  "Hex Viewer - Compressed-by-this-app Data", [12]]; // 13
 var decompressC = ["hexViewer",            24, 28,    c1, d1,  "Hex Viewer - Decompressed from compressed-by-this-app Data", [13]]; // 14
 var tilesetViewerC = ["tilesetViewer",     24, 28,    c2, d2-1,  "Tiles", [14, null, null ]];
-var descriptionC = ["textDescription",     23, 28,    c0, d0,  "About Compression", null, compPipelineText]; // 11
+var descriptionC = ["textDescription",     23, 28,    c0, d0,  "About - Compression", null, compPipelineText]; // 11
 
 const ui = new UImodel(
-        document.getElementById("panelgrid"),
+        document.getElementById("panelgrid_1"),
         [ inputPanel, compHexPanel,
-        paletteInputPanel, paletteViewer,
-        decompHexPanel, bitplanePanel,
+        decompHexPanel, paletteInputPanel,
+        paletteViewer, bitplanePanel,
         tilesetViewer,
         metatilemapInputPanel, metatilesViewer,
         levelMapInputPanel, levelMapViewer,
@@ -252,9 +631,9 @@ const ui = new UImodel(
         "main"
     );
 
-let pg = document.getElementById("panelgrid");
+let pg = document.getElementById("panelgrid_1");
 
-
+*/
 
 </script>
 

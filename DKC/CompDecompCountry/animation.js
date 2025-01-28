@@ -479,7 +479,7 @@ class Animation {
       // set all loaded decomp to invisible
       Array.from(this.decompContent.querySelectorAll(".byte_group > .byte_container > .byte")).forEach(d=>d.style.color = "var(--textColorTransparent)");
       // set all previously-generated-butnot-loaded decomp to invisible
-      this.decomp.source.groupNodes.forEach(
+      this.decomp.data.groupNodes.forEach(
         groupNode=>groupNode.querySelectorAll(".byte_container > .byte").forEach(
           d=>d.style.color = "var(--textColorTransparent)"
         )
@@ -495,13 +495,13 @@ class Animation {
       for (let i=0; i<128; i++){
         let groupIndex = Math.floor(i/this.comp.groupSize);
         
-          if (this.comp.source.groupNodes[groupIndex]){
-            targetGroupNode = this.comp.source.groupNodes[groupIndex];
+          if (this.comp.data.groupNodes[groupIndex]){
+            targetGroupNode = this.comp.data.groupNodes[groupIndex];
           } else {
-            targetGroupNode = this.compContent.querySelector(`group_${this.source.offsetsHexStrings[i]}`);
+            targetGroupNode = this.compContent.querySelector(`group_${this.data.offsetsHexStrings[i]}`);
             // if we didn't find anything (shouldn't happen except with very small group sizes...?)
             if (!targetGroupNode) {
-              targetGroupNode = this.comp.generateHexHTML(this.comp.source.data, groupIndex*this.comp.groupSize);
+              targetGroupNode = this.comp.generateHexHTML(this.comp.data.data, groupIndex*this.comp.groupSize);
             }
           }
         let lutEntry = targetGroupNode.querySelector(`#byte_${hex( i, 6 )} > .byte`);
@@ -1062,11 +1062,11 @@ class Animation {
             // console.log(`/*\n${this.debug.header}*/\n${this.debug.keyframes}`);
             // let b78 = Array.from(Array(78).keys()).map(d=>"-").join("");
             // this.debug.log += `/*${b78}\n${this.debug.header}\n${b78}*/\n${this.debug.keyframes}`;
-            if (this.compIndex < this.comp.source.data.length) this.decompSpan();
+            if (this.compIndex < this.comp.data.data.length) this.decompSpan();
           }, (!cmdOffsetPos.inView || !outOffsetPos.inView) ? this.scrollTime*1000 : 0 )
 
           // // begin the next span
-          // if (this.compIndex < this.comp.source.data.length) this.decompSpan();
+          // if (this.compIndex < this.comp.data.data.length) this.decompSpan();
 
         }
 
@@ -1194,14 +1194,14 @@ class Animation {
 
       // set more details based on the current command byte
       //
-      this.cmdVal = this.comp.source.data[this.compIndex]; // get actual data value
+      this.cmdVal = this.comp.data.data[this.compIndex]; // get actual data value
       this.cmdHex = hex( this.cmdVal, 2 ); // convert value to hex
       this.cmdBin = binar( this.cmdVal, 8 ); // convert to binary
       this.mode = (this.cmdVal & 0b11000000) >> 6; // 2 MSBs are command mode
       this.n = this.cmdVal & 0b00111111; // 6 LSBs are detail
       this.ni = this.n*1; // to be used for visual decrementing later
       // get address; only used for modes 2 or 3
-      if (this.mode==2) this.address = this.comp.source.data[this.compIndex+1] | (this.comp.source.data[this.compIndex+2] << 8);
+      if (this.mode==2) this.address = this.comp.data.data[this.compIndex+1] | (this.comp.data.data[this.compIndex+2] << 8);
       if (this.mode==3) this.address = this.n << 1;
       this.numberAddedToDecomp = (this.mode==3) ? 2 : this.n; // number of bytes that will be added to decomp data (not needed?)
       this.modeColor = this.bgColors[this.mode]; // color of this mode
@@ -1252,7 +1252,7 @@ class Animation {
       for (let groupName in compGroups) {
         let group = compGroups[groupName];
         if (!this.compContent.querySelector(groupName)) {
-          this.comp.generateHexHTML(this.comp.source.data, group*1);
+          this.comp.generateHexHTML(this.comp.data.data, group*1);
           console.log('added '+groupName);
         }
         this.compContent.querySelector(groupName).classList.add("keep_loaded");
@@ -1269,10 +1269,10 @@ class Animation {
 
         if (!this.decompContent.querySelector(groupName)) {
           let groupIndex = group/this.decomp.groupSize;
-          if (this.decomp.source.groupNodes[groupIndex]){
-            this.decomp.source.groupNodes[groupIndex] = this.decompContent.appendChild( this.decomp.source.groupNodes[groupIndex]);
+          if (this.decomp.data.groupNodes[groupIndex]){
+            this.decomp.data.groupNodes[groupIndex] = this.decompContent.appendChild( this.decomp.data.groupNodes[groupIndex]);
           } else {
-            this.decomp.generateHexHTML(this.decomp.source.data, group*1);
+            this.decomp.generateHexHTML(this.decomp.data.data, group*1);
           }
           
           // set all new decomp to invisible

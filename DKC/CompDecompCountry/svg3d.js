@@ -167,7 +167,7 @@ class View {
                             <g id="elements_${this.name}"></g>
                           </svg>`;
     this.svg = document.getElementById(`svg_${this.name}`);
-    console.log(`elements_${this.name}`);
+    // console.log(`elements_${this.name}`);
     this.svgGroup = document.getElementById(`elements_${this.name}`);
 
     // Now make SVG strings for each element:
@@ -227,7 +227,9 @@ class View {
 
     // for scrolling to zoom:
     eventwrap('wheel', evt => {
-      if (evt.ctrlKey) {
+      
+      // if (evt.ctrlKey) {
+      if ( evt.metaKey || evt.ctrlKey ){
         // let hexContent = this.svg.parentNode.parentNode;
         // hexContent.style.overflow = "hidden";
         evt.preventDefault();
