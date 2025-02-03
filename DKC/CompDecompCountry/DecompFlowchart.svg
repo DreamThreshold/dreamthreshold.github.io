@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="202.73573mm"
+   height="201.12462mm"
+   viewBox="0 0 202.73573 201.12462"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-1.6135855,-47.73865)">
+    <ellipse
+       style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       id="path1"
+       cx="56.575764"
+       cy="57.851227"
+       rx="16.672085"
+       ry="10.112577" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       x="43.91227"
+       y="54.844788"
+       id="text1"><tspan
+         id="tspan1"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         x="43.91227"
+         y="54.844788">Command Byte</tspan></text>
+    <ellipse
+       style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       id="ellipse1"
+       cx="56.66687"
+       cy="84.089264"
+       rx="16.672085"
+       ry="10.112577" />
+    <ellipse
+       style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       id="ellipse1-8"
+       cx="40.291424"
+       cy="108.90914"
+       rx="16.672085"
+       ry="10.112577" />
+    <ellipse
+       style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       id="ellipse1-5"
+       cx="80.36747"
+       cy="108.50266"
+       rx="16.672085"
+       ry="10.112577" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       x="57.862606"
+       y="72.034821"
+       id="text1-1"><tspan
+         id="tspan1-1"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         x="57.862606"
+         y="72.034821">to binary</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       x="72.52034"
+       y="95.00769"
+       id="text1-1-6"><tspan
+         id="tspan1-1-1"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         x="72.52034"
+         y="95.00769">6 LSBs</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       x="49.316433"
+       y="98.791069"
+       id="text1-1-6-2"><tspan
+         id="tspan1-1-1-2"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         x="49.316433"
+         y="98.791069">2 MSBs</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       x="34.453354"
+       y="103.42839"
+       id="text1-1-6-2-5"><tspan
+         id="tspan1-1-1-2-7"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         x="34.453354"
+         y="103.42839">Mode</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 56.610877,67.963674 0.02088,6.013143"
+       id="path3" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       x="41.361347"
+       y="95.112877"
+       id="text4"><tspan
+         id="tspan4"
+         style="stroke-width:0"
+         x="41.361347"
+         y="95.112877">2 MSV</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+       x="72.117508"
+       y="103.47966"
+       id="text1-1-6-2-9"><tspan
+         id="tspan1-1-1-2-2"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         x="72.117508"
+         y="103.47966">Detail, &quot;n&quot;</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 38.51259,118.96384 27.474626,181.35492"
+       id="path7" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 50.472497,93.47793 -3.9867,6.042546"
+       id="path8" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 65.126341,92.803155 6.781658,6.985617"
+       id="path9" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 43.01897,118.88529 73.063437,228.77452"
+       id="path10" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 48.231861,117.8009 36.705663,41.10326"
+       id="path11" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 54.110695,114.56596 56.384375,23.08055"
+       id="path16" />
+    <g
+       id="g21"
+       transform="translate(-41.179141,80.171779)">
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="173.45392"
+         y="35.818455"
+         id="text1-1-6-3-9-3"><tspan
+           id="tspan1-1-1-8-8-7"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="173.45392"
+           y="35.818455">Mode 3</tspan></text>
+      <ellipse
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+         id="path6-2-7"
+         cx="231.67287"
+         cy="106.88277"
+         rx="10.178433"
+         ry="10.242854" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="243.71619"
+         y="108.58514"
+         id="text1-1-6-3-9-14-7"><tspan
+           id="tspan1-1-1-8-8-60-7"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="243.71619"
+           y="108.58514">2</tspan></text>
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4-8-1"
+         cx="210.13786"
+         cy="110.64296"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="196.06149"
+         y="109.96219"
+         id="text1-1-6-2-5-3-6-3"><tspan
+           id="tspan1-1-1-2-7-3-0-5"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="196.06149"
+           y="109.96219">Copy the following</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="196.06149"
+           y="113.93094"
+           id="tspan5-2-9">2 bytes to output</tspan></text>
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4-0-6-8"
+         cx="175.45096"
+         cy="88.899742"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="162.23137"
+         y="85.051445"
+         id="text1-1-6-2-5-3-3-1-4"><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="162.23137"
+           y="85.051445"
+           id="tspan5-9-4-0">Go to this offset </tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="162.23137"
+           y="89.020195"
+           id="tspan9-7">in our input data</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="162.23137"
+           y="92.988945"
+           id="tspan15">(Lookup table)</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="162.23137"
+           y="96.957695"
+           id="tspan16" /></text>
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4-0-6-8-1"
+         cx="165.49348"
+         cy="63.131557"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="153.04695"
+         y="59.283268"
+         id="text1-1-6-2-5-3-3-1-4-5"><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="153.04695"
+           y="59.283268"
+           id="tspan9-7-2">n &lt;&lt; 1</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="153.04695"
+           y="63.252018"
+           id="tspan13">(multiply n by 2)</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="153.04695"
+           y="67.220764"
+           id="tspan14" /></text>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 169.29807,72.977162 2.3483,6.076975"
+         id="path17" />
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 145.86511,176.33869 11.50032,7.20888"
+       id="path18" />
+    <g
+       id="g19"
+       transform="translate(15.305521,-4.3730061)">
+      <ellipse
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+         id="path6"
+         cx="30.886763"
+         cy="191.91458"
+         rx="10.178433"
+         ry="10.242854" />
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4"
+         cx="10.390271"
+         cy="195.78262"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="-3.6861141"
+         y="195.10185"
+         id="text1-1-6-2-5-3"><tspan
+           id="tspan1-1-1-2-7-3"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="-3.6861141"
+           y="195.10185">Copy the following</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="-3.6861141"
+           y="199.0706"
+           id="tspan5">n bytes to output</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="-14.001994"
+         y="188.25388"
+         id="text1-1-6-3"><tspan
+           id="tspan1-1-1-8"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="-14.001994"
+           y="188.25388">Mode 0</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="40.035168"
+         y="200.13441"
+         id="text1-1-6-3-9-1"><tspan
+           id="tspan1-1-1-8-8-6"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="40.035168"
+           y="200.13441">n</tspan></text>
+    </g>
+    <g
+       id="g20"
+       transform="translate(-8.7460121,32.433129)">
+      <ellipse
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+         id="path6-7"
+         cx="105.03347"
+         cy="202.44949"
+         rx="10.178433"
+         ry="10.242854" />
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4-7"
+         cx="84.536995"
+         cy="206.31754"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="70.460609"
+         y="204.44864"
+         id="text1-1-6-2-5-3-9"><tspan
+           id="tspan1-1-1-2-7-3-3"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="70.460609"
+           y="204.44864">Copy the following</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="70.460609"
+           y="208.41739"
+           id="tspan22">1 byte to output</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="70.460609"
+           y="212.38614"
+           id="tspan23">n times </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="58.504852"
+         y="180.29462"
+         id="text1-1-6-3-9"><tspan
+           id="tspan1-1-1-8-8"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="58.504852"
+           y="180.29462">Mode 1</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="116.86491"
+         y="206.84787"
+         id="text1-1-6-3-9-4"><tspan
+           id="tspan1-1-1-8-8-1"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="116.86491"
+           y="206.84787">n</tspan></text>
+    </g>
+    <g
+       id="g22"
+       transform="translate(-45.916564,29.882208)">
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4-0"
+         cx="138.79453"
+         cy="137.91371"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="123.9856"
+         y="136.68318"
+         id="text1-1-6-2-5-3-3"><tspan
+           id="tspan1-1-1-2-7-3-8"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="123.9856"
+           y="136.68318">Get the following</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="123.9856"
+           y="140.65193"
+           id="tspan5-9">2 bytes</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="151.27528"
+         y="162.22249"
+         id="text1-1-6-3-9-7"><tspan
+           id="tspan1-1-1-8-8-8"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="151.27528"
+           y="162.22249">swap the bytes</tspan></text>
+      <ellipse
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+         id="path6-2"
+         cx="231.6685"
+         cy="190.83713"
+         rx="10.178433"
+         ry="10.242854" />
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4-8"
+         cx="211.17203"
+         cy="194.70517"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="197.09564"
+         y="194.0244"
+         id="text1-1-6-2-5-3-6"><tspan
+           id="tspan1-1-1-2-7-3-0"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="197.09564"
+           y="194.0244">Copy the following</tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="197.09564"
+           y="197.99315"
+           id="tspan5-2">n bytes to output</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="133.75706"
+         y="118.02825"
+         id="text1-1-6-3-4"><tspan
+           id="tspan1-1-1-8-86"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="133.75706"
+           y="118.02825">Mode 2</tspan></text>
+      <ellipse
+         style="fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         id="ellipse1-8-4-0-6"
+         cx="157.32379"
+         cy="175.0444"
+         rx="16.672085"
+         ry="10.112577" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="142.30043"
+         y="172.22684"
+         id="text1-1-6-2-5-3-3-1"><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="142.30043"
+           y="172.22684"
+           id="tspan5-9-4">Go to this offset </tspan><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="142.30043"
+           y="176.19559"
+           id="tspan9">in our output data</tspan></text>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 171.60757,180.25962 25.28068,9.23034"
+         id="path13" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#b3b300;stroke-width:0.264583;stroke-opacity:0.69"
+         x="243.71182"
+         y="192.53949"
+         id="text1-1-6-3-9-14"><tspan
+           id="tspan1-1-1-8-8-60"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="243.71182"
+           y="192.53949">n</tspan></text>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 143.62455,147.59258 8.86921,17.77296"
+         id="path19" />
+    </g>
+  </g>
+</svg>

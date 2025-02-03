@@ -52,6 +52,27 @@ function binart(integer,bit=8,sp=0){
     // return `${sp!=0?"&#8239;":""}${str}`;
     return `${sp!=0?" ":""}${str}`;
 }
+
+
+// quick and dirty "collapser" feature. for html text
+function hideParent(e) {
+	// console.log(e);
+  let str1 = '';
+  let str2 = '';
+  let max = '+';
+  let min = '-';
+  if ( e.innerHTML == `${str1}${min}${str2}` ){
+    e.parentNode.style.height = "1.5em";
+    e.parentNode.style.overflowY = "clip";
+    e.innerHTML = `${str1}${max}${str2}`;
+  }else{
+    e.parentNode.style.height = "";
+    e.innerHTML = `${str1}${min}${str2}`;
+  }
+
+}
+
+
 // This generates a 2D array pre-filled with zeros. Much like np.zeros() in python.
 // Probably pretty efficient...?
 function zeros(m,n){

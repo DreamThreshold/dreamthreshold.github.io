@@ -1,6 +1,7 @@
 <!DOCTYPE html>
     <html>
 <!-- Created 2024-10-23 / Release 0.1 2024-11-21 -->
+<!--                      Release 0.2 2025-02-02 -->
 <head>
   <meta charset="UTF-8">
   <title>Comp/Decomp Country</title>
@@ -86,268 +87,7 @@
 <!-- for GUI panels and their methods -->
 <script src="panels.js"></script>
 
-<!-- this is the main, inline script. 
- Afer the first major refactoring,
- The remaining stuff in here is mainly file stuff, HTML/buttons/canvas interaction, and UI class, plus the creation of the page elements.
- -->
 <script>
-
-
-
-// note: UImodel superseded by Workspace
-// class UImodel {
-//   constructor(grid, panelsParams, name=null ) {
-
-//     this.grid = grid;
-//     this.workspace = this.grid.parentNode;
-//     this.panels = [];
-
-//     for (let i = 0; i<panelsParams.length; i++){
-//         //HACK: surely a better way to do this but whatever
-//         if ( panelsParams[i][0] == "textDescription") {
-//           this.panels.push( new TextPanel(this,
-//             panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-//             panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-//             panelsParams[i][6], panelsParams[i][7] )
-//           );
-//           continue;
-//         }
-//         if ( panelsParams[i][0] == "fileIn") {
-//           this.panels.push( new FilePanel(this,
-//             panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-//             panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-//             panelsParams[i][6], panelsParams[i][7] )
-//           );
-//           continue;
-//         }
-//         this.panels.push( new Panel(this,
-//             panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-//             panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-//             panelsParams[i][6], panelsParams[i][7] )
-//         );
-
-//     }
-
-//     this.name = name;
-//     this.sources = []; // will contain source data from files
-//     this.links = [];
-
-//     // perform the linking of panels
-//     // for (let panel of this.panels){
-//     //     for (let link of panel.links){
-//     //         console.log(`Pushing link: [${link.name}] --> [${panel.name}]`);
-//     //         link.nexts.push(panel);
-//     //     }
-//     // }
-    
-//     for (let panel of this.panels) 
-//       for (let link of panel.links)
-//         if (link)
-//           link.nexts.push(panel);
-    
-
-//     this.workspace.setAttribute('data-draggable', "true");
-//     this.assignDrag();
-    
-//   }
-//   addPanel(){
-
-//   }
-//   addLink( link ){
-//     // actually not much is done here, it's mostly done by Link constructor...
-//   }
-  
-//   assignDrag(){
-//     // Drag the panel around by grabbing its header
-//     var element = this.workspace;
-//     var deltaX = 0, deltaY = 0, startX = 0, startY = 0, left, top;
-
-//     let dragDiv = document.getElementById("main"); // should allow dragging from anywhere
-//     dragDiv.addEventListener("mousedown", (event) => {
-//       // if (!event.ctrlKey) return 1;
-//       if (!event.metaKey) return 1;
-//       event = event || window.event;
-//       event.preventDefault();
-//       startX = event.clientX;
-//       startY = event.clientY;
-//       document.onmouseup = dragClose;
-//       document.onmousemove = dragMove;
-//       console.log("drag: mouse down");
-//       // panel.sortZ();
-      
-//     });
-
-//     function dragMove(event){
-//       event = event || window.event;
-//       event.preventDefault();
-
-//       if (element.getAttribute('data-draggable')=="false") return 0;
-
-//       deltaX = startX - event.clientX;
-//       deltaY = startY - event.clientY;
-//       startX = event.clientX;
-//       startY = event.clientY;
-
-//       left = element.offsetLeft - deltaX;
-//       element.style.left = `${left}px`;
-//       element.setAttribute('data-user-left', left);
-
-//       // top = Math.max(element.offsetTop - deltaY, 0);
-//       top = element.offsetTop - deltaY;
-//       console.log(`element.offsetTop ${element.offsetTop} - deltaY ${deltaY}`);
-//       element.style.top = `${top}px`;
-//       element.setAttribute('data-user-top', top);
-
-      
-//       console.log("drag: moved");
-
-//     }
-
-//     function dragClose(event){
-//       document.onmouseup = null;
-//       document.onmousemove = null;
-//     }
-
-//   }
-// }
-
-
-// note: UImodel superseded by Workspace
-class Workspace {
-  constructor(grid, name=null ) {
-
-    this.grid = grid;
-    this.workspace = this.grid.parentNode;
-    this.panels = [];
-
-    // for (let i = 0; i<panelsParams.length; i++){
-    //     //HACK: surely a better way to do this but whatever
-    //     if ( panelsParams[i][0] == "textDescription") {
-    //       this.panels.push( new TextPanel(this,
-    //         panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-    //         panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-    //         panelsParams[i][6], panelsParams[i][7] )
-    //       );
-    //       continue;
-    //     }
-    //     if ( panelsParams[i][0] == "fileIn") {
-    //       this.panels.push( new FilePanel(this,
-    //         panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-    //         panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-    //         panelsParams[i][6], panelsParams[i][7] )
-    //       );
-    //       continue;
-    //     }
-    //     this.panels.push( new Panel(this,
-    //         panelsParams[i][0], panelsParams[i][1], panelsParams[i][2],
-    //         panelsParams[i][3], panelsParams[i][4], panelsParams[i][5],
-    //         panelsParams[i][6], panelsParams[i][7] )
-    //     );
-
-    // }
-
-    this.name = name ? name : "Workspace_"+Date.now();
-    this.sources = []; // will contain source data from files
-    this.links = [];
-
-    // perform the linking of panels
-    // for (let panel of this.panels){
-    //     for (let link of panel.links){
-    //         console.log(`Pushing link: [${link.name}] --> [${panel.name}]`);
-    //         link.nexts.push(panel);
-    //     }
-    // }
-    
-    // for (let panel of this.panels) 
-    //   for (let link of panel.links)
-    //     if (link)
-    //       link.nexts.push(panel);
-    
-
-    this.workspace.setAttribute('data-draggable', "true");
-    this.assignDrag();
-    
-  }
-  addPanel(){
-
-  }
-  addLink( link ){
-    // actually not much is done here, it's mostly done by Link constructor...
-    return link;
-  }
-  
-  assignDrag(){
-    // Drag the panel around by grabbing its header
-    var element = this.workspace;
-    var deltaX = 0, deltaY = 0, startX = 0, startY = 0, left, top;
-
-    let dragDiv = document.getElementById("main"); // should allow dragging from anywhere
-    dragDiv.addEventListener("mousedown", (event) => {
-      // if (!event.ctrlKey) return 1;
-      if (!(event.metaKey || event.ctrlKey) ) return 1;
-      
-      event = event || window.event;
-      event.preventDefault();
-      startX = event.clientX;
-      startY = event.clientY;
-      document.onmouseup = dragClose;
-      document.onmousemove = dragMove;
-      // console.log("drag: mouse down");
-      // panel.sortZ();
-      
-    });
-
-    function dragMove(event){
-      event = event || window.event;
-      event.preventDefault();
-
-      if (element.getAttribute('data-draggable')=="false") return 0;
-
-      deltaX = startX - event.clientX;
-      deltaY = startY - event.clientY;
-      startX = event.clientX;
-      startY = event.clientY;
-
-      left = element.offsetLeft - deltaX;
-      element.style.left = `${left}px`;
-      element.setAttribute('data-user-left', left);
-
-      // top = Math.max(element.offsetTop - deltaY, 0);
-      top = element.offsetTop - deltaY;
-      element.style.top = `${top}px`;
-      element.setAttribute('data-user-top', top);
-
-      
-      // console.log("drag: moved");
-
-    }
-
-    function dragClose(event){
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
-
-  }
-}
-
-// quick and dirty "collapser" feature.
-function hideParent(e) {
-	// console.log(e);
-  let str1 = '';
-  let str2 = '';
-  let max = '+';
-  let min = '-';
-  if ( e.innerHTML == `${str1}${min}${str2}` ){
-    e.parentNode.style.height = "1.5em";
-    e.parentNode.style.overflowY = "clip";
-    e.innerHTML = `${str1}${max}${str2}`;
-  }else{
-    e.parentNode.style.height = "";
-    e.innerHTML = `${str1}${min}${str2}`;
-  }
-
-
-}
 
 //
 //   Create the ui and panels
@@ -359,16 +99,18 @@ let dx = cx+5;
 let d0 = c1-1, d1 = c2-1, d2=c3-1, d3=32;
 
 const workspace1 = new Workspace( document.getElementById("panelgrid_1") );
-this.links = [];
+var links = [];
 
 // input and decompressor
 var inputPanel = new FilePanel(workspace1, 1,  3,    c0, d0,  "File: Compressed Gfx");
-var decompressPanel = new ChrDecompressPanel(workspace1, 3,  3,    c0, d0,  "Decompress");
-links.push( workspace1.addLink( new Link(inputPanel.outputPorts.out, decompressPanel.inputPorts.in) ) );
 
 // hex viewers for comp/decomp
 var compHexPanel = new HexPanel( workspace1,  1, 10, c1, d1,  "Hex View: Compressed Data"); // 1
 links.push( workspace1.addLink( new Link(inputPanel.outputPorts.out, compHexPanel.inputPorts.in) ) );
+
+var decompressPanel = new ChrDecompressPanel(workspace1, 3,  3,    c0, d0,  "Decompress");
+links.push( workspace1.addLink( new Link(compHexPanel.outputPorts.out, decompressPanel.inputPorts.in) ) );
+
 var decompHexPanel = new HexPanel( workspace1,  10, 19, c1, d1,  "Hex View: Decompressed Data"); // 2
 links.push( workspace1.addLink( new Link(decompressPanel.outputPorts.out, decompHexPanel.inputPorts.in) ) );
 
@@ -379,40 +121,42 @@ links.push( workspace1.addLink( new Link(decompHexPanel.outputPorts.out, bitplan
 
 // unbitplane and show tiles
 var unbitplanePanel = new UnbitplanePanel( workspace1,   13, 13,    c2, c2+3, "Unbitplane");
-links.push( workspace1.addLink( new Link(decompHexPanel.outputPorts.out, unbitplanePanel.inputPorts.in) ) );
-var tilesetViewer = new TilesetPanel( workspace1,  15, 19,   c2, d2-1,  "Tiles");
+links.push( workspace1.addLink( new Link(bitplanePanel.outputPorts.out, unbitplanePanel.inputPorts.in) ) );
+var tilesetViewer = new TilesetPanel( workspace1,  15, 19,   c2, d2-1,  "Tileset (8x8 Tiles)");
 links.push( workspace1.addLink( new Link( unbitplanePanel.outputPorts.out, tilesetViewer.inputPorts.in) ) );
 
 
 
 // palette
-var paletteInputPanel = new FilePanel(workspace1, 1,  3,    c3, c3+3,  "File: Palette");  //  3
-var pal2rgbPanel = new Palette2RGBPanel(workspace1,  1,  1,    c3+4, c3+3+4,  "Convert Palette to RGB");  //  3
+var paletteInputPanel = new FilePanel(workspace1, 1,  3,    11, 16,  "File: Palette");  //  3
+var pal2rgbPanel = new Palette2RGBPanel(workspace1,  1,  2,    18, 23,  "Convert Palette: SNES 15 bit to RGB 24 bit");  //  3
 links.push( workspace1.addLink( new Link( paletteInputPanel.outputPorts.out, pal2rgbPanel.inputPorts.in) ) );
 
-var paletteViewer = new PalettePanel( workspace1,   3,  6,    c3, d3,  "Palette" ); // 4
+var paletteViewer = new PalettePanel( workspace1,   3,  6,    21, 25,  "Palette" ); // 4
 links.push( workspace1.addLink( new Link( pal2rgbPanel.outputPorts.out, paletteViewer.inputPorts.in) ) );
 
 // metatiles
 var metatileInputPanel = new FilePanel(workspace1,  7, 9,    c3, c3+3,  "File: Tilemap32 (Metatiles)");
-var buildMetatilesPanel = new BuildMetatilesPanel(workspace1,  7, 7,    c3+4, c3+3+4,  "Build Metatiles");
+var buildMetatilesPanel = new BuildMetatilesPanel(workspace1,  7, 7,    c3+4, c3+3+4,  "Assemble Metatiles Gfx");
 // ["rgbPalette", "tilemap32", "unbitplanedTiles"]
 links.push( workspace1.addLink( new Link( metatileInputPanel.outputPorts.out, buildMetatilesPanel.inputPorts.tilemap32) ) );
-links.push( workspace1.addLink( new Link( unbitplanePanel.outputPorts.out, buildMetatilesPanel.inputPorts.unbitplanedTiles) ) );
-links.push( workspace1.addLink( new Link( pal2rgbPanel.outputPorts.out, buildMetatilesPanel.inputPorts.rgbPalette) ) );
+links.push( workspace1.addLink( new Link( tilesetViewer.outputPorts.out, buildMetatilesPanel.inputPorts.unbitplanedTiles) ) );
+links.push( workspace1.addLink( new Link( paletteViewer.outputPorts.out, buildMetatilesPanel.inputPorts.rgbPalette) ) );
 
-var metatilesViewer = new MetatilesPanel(workspace1, 9, 15,    c3, d3,  "Tilemap32 (Metatiles)");
+var metatilesViewer = new MetatilesPanel(workspace1, 9, 15,    c3, d3,  "32x32 Tiles (Metatiles)");
 links.push( workspace1.addLink( new Link( buildMetatilesPanel.outputPorts.out, metatilesViewer.inputPorts.in) ) );
 
 // level map
 var levelmapInputPanel = new FilePanel(workspace1, 16,  18,    c3, c3+3,  "File: Level Map");
-var buildLevelMapPanel = new BuildLevelMapPanel(workspace1,  16, 16,    c3+4, c3+3+4,  "Build Level Map");
+var buildLevelMapPanel = new BuildLevelMapPanel(workspace1,  16, 16,    c3+4, c3+3+4,  "Assemble Level Map Gfx");
 // ["rgbPalette", "tilemap32", "unbitplanedTiles"]
 links.push( workspace1.addLink( new Link( levelmapInputPanel.outputPorts.out, buildLevelMapPanel.inputPorts.levelMap) ) );
-links.push( workspace1.addLink( new Link( buildMetatilesPanel.outputPorts.out, buildLevelMapPanel.inputPorts.metatileArray) ) );
+links.push( workspace1.addLink( new Link( metatilesViewer.outputPorts.out, buildLevelMapPanel.inputPorts.metatileArray) ) );
 
-var levelMapViewer = new LevelMapPanel( workspace1,  18, 28,    c3, d3,  "Level Map");
+var levelMapViewer = new LevelMapPanel( workspace1,  18, 28,    c3, d3,  "Level Map Gfx");
 links.push( workspace1.addLink( new Link( buildLevelMapPanel.outputPorts.out, levelMapViewer.inputPorts.in) ) );
+
+
 
 
 // comp pipeline
@@ -426,21 +170,19 @@ links.push( workspace1.addLink( new Link( inputPanelC.outputPorts.out, compressP
 var compressC = new HexPanel( workspace1,  20, 28,    c2, d2,  "Hex View: Newly Compressed Data" );
 links.push( workspace1.addLink( new Link( compressPanel.outputPorts.out, compressC.inputPorts.in) ) );
 
-/*
-// decompress again
-var decompressPanelC = new ChrDecompressPanel(workspace1,  22,  22,    c0, c0+3,  "Decompress");
-links.push( workspace1.addLink( new Link( compressPanel.outputPorts.out, decompressPanelC.inputPorts.in) ) );
 
-// show that decompressed data
-var decompressC = new HexPanel( workspace1,   24, 28,    c1, d1,  "Hex Viewer - Decompressed from compressed-by-this-app Data" );
-links.push( workspace1.addLink( new Link( decompressPanelC.outputPorts.out, decompressC.inputPorts.in) ) );
-//... and the tileset
-var unbitplanePanelC = new UnbitplanePanel( workspace1,  23, 24,    c2, c2+3, "Unbitplane");
-links.push( workspace1.addLink( new Link(decompressC.outputPorts.out, unbitplanePanelC.inputPorts.in) ) );
-var tilesetViewerC = new TilesetPanel( workspace1,  24, 28,   c2, d2-1,  "Tiles");
-links.push( workspace1.addLink( new Link( unbitplanePanelC.outputPorts.out, tilesetViewerC.inputPorts.in) ) );
-*/
+// // decompress again
+// var decompressPanelC = new ChrDecompressPanel(workspace1,  22,  22,    c0, c0+3,  "Decompress");
+// links.push( workspace1.addLink( new Link( compressPanel.outputPorts.out, decompressPanelC.inputPorts.in) ) );
 
+// // show that decompressed data
+// var decompressC = new HexPanel( workspace1,   24, 28,    c1, d1,  "Hex Viewer - Decompressed from compressed-by-this-app Data" );
+// links.push( workspace1.addLink( new Link( decompressPanelC.outputPorts.out, decompressC.inputPorts.in) ) );
+// //... and the tileset
+// var unbitplanePanelC = new UnbitplanePanel( workspace1,  23, 24,    c2, c2+3, "Unbitplane");
+// links.push( workspace1.addLink( new Link(decompressC.outputPorts.out, unbitplanePanelC.inputPorts.in) ) );
+// var tilesetViewerC = new TilesetPanel( workspace1,  24, 28,   c2, d2-1,  "Tiles");
+// links.push( workspace1.addLink( new Link( unbitplanePanelC.outputPorts.out, tilesetViewerC.inputPorts.in) ) );
 var compPipelineText = `\
 <div class="text_content" >
   <p>This group of panels (16-18) represents a separate pipeline from the others above.</p>
@@ -449,7 +191,8 @@ var compPipelineText = `\
     In the compressed data hex viewer to the right, you can download the compressed data file from the "☰" menu.
   </p>
 </div>`;
-var descriptionC = new TextPanel( workspace1,  23, 28,    c0, c1+4+2,  "About - Compression ", compPipelineText );
+// var descriptionC = new TextPanel( workspace1,  23, 28,    c0, c1+4+2,  "About - Compression ", compPipelineText );
+
 
 
 
@@ -503,7 +246,7 @@ let verboseAboutThisApp = `
 <b>App Background</b><br>
   The app's first release was made to celebrate DKC's 30<sup>th</sup> anniversary. The goal is to de-mystify DKC hacking and to provide even more appreciation for what Rare developed in the 1990s. 
   <br><br>
-  There exist multiple editors and resources for the DKC series, already (though, nowhere near the depth of resources for SMW and other games). But if you're curious about how all this stuff <i>works</i>, it's tricky to comb through the assorted resources online and wrap your head around things. At least for me it was :) I like being able to play around with stuff, look at it in different ways, dive into the unique aspects like the custom compression, and trace the pipeline of data; I hope that sort of stuff can help other people more easily grasp DKC hacking as well. And, with a wacky user interface like this, I'm hoping users (and myself) can find a good workflow for unconventional hacks in the future.
+  There exist multiple editors and resources for the DKC series, already (though, nowhere near the depth of resources for SMW and other games). But if you're curious about how all this stuff works, it's tricky to comb through the assorted resources online and wrap your head around things. At least for me it was :) I like being able to play around with stuff, look at it in different ways, dive into the unique aspects like the custom compression, and trace the pipeline of data. By putting those features in this app, I hope that sort of stuff can help other people more easily grasp DKC hacking as well. And, with a node-based user interface like this, I'm hoping people can find a good workflow for unconventional hacks in the future.
   <br><br>
   More features will continue to be added. Works best in a full screen window, tested most thoroughly with firefox. You can expect more features for visualizing, documenting, and hacking the DKC series soon. Thanks!
   <br><br>
@@ -513,19 +256,21 @@ let verboseAboutThisApp = `
 `;
 let contact = `
 <b>Contact</b><br>
-Feel free to suggest features and point out bugs, it would be greatly appreciated! Even if you have some wacky idea for a feature you'd like to see.
+Feel free to suggest features and point out bugs, it would be greatly appreciated! 
 <br><br>
 Discord:<br>
 `;
 
 let paragraphs = [
-`<b>Hello!</b> <br>This app compresses and decompresses graphics data from DKC, and provides visualizations that can help in ROM hacking.
+`<b>Hello!</b> <br>This app compresses and decompresses graphics from DKC, and can extract tilesets and palettes.
+Choose a page below to get a pipeline more suited for specific features.
+<br><a href="comp.html">Compress DKC1 tileset graphics.</a>
+<br><a href="decomp.html">Decompress DKC1 tileset graphics.</a>
+<br><a href="extract.html">Extract tilesets, palettes, metatiles, level maps.</a>
 <br><br>
-It provides several panels with different applications. Most panels are part of a pipeline that can show you the steps to get from raw data to images and other game assets.
-<br><br>
-To simply decompress DKC1 graphics, upload to panel 0 and download the result from panel 3's "☰" menu.
-<br><br>
-To compress a SNES tileset for use in DKC1, upload to panel 16 and download the result from panel 18's "☰" menu.`,
+The page you're on now will let you do all 3, but is more spread out (ctrl-click/cmd-click and drag to pan the workspace). You can activate an animation of the decompression process from within panel 1's "☰" menu.
+<br><br>Read on for more details about this app.<br>
+`,
 panelTypesMerged,
 `<b>Panel User Interface</b><br>
     Panels can be...<br>
@@ -579,61 +324,13 @@ aboutText2 = `<div class="text_content" >`+paragraphs.reduce((s,d,i)=>s+=`<div s
 
 var aboutPanel = new TextPanel( workspace1,   5, 19,    c0, d0,  "About - App", aboutText2);
 
-/*
+workspace1.repositionPanels(`
+{"0":{"left":11,"top":2,"width":265,"height":89.85000610351562},"1":{"left":335,"top":43,"width":428,"height":467.6166687011719},"2":{"left":705,"top":5,"width":150,"height":34},"3":{"left":803,"top":43,"width":430,"height":464.6166687011719},"4":{"left":1263,"top":10,"width":413,"height":495.48333740234375},"5":{"left":1701,"top":102,"width":121,"height":48.600006103515625},"6":{"left":1710,"top":205,"width":185,"height":548.316650390625},"7":{"left":1956,"top":1,"width":300,"height":91.61666870117188},"8":{"left":2045,"top":95,"width":312,"height":46.46665954589844},"9":{"left":2247,"top":147,"width":196,"height":142.4166717529297},"10":{"left":2508,"top":170,"width":232,"height":110.55000305175781},"11":{"left":2560,"top":296,"width":232,"height":40.23333740234375},"12":{"left":2620,"top":351,"width":263,"height":520},"13":{"left":2835,"top":137,"width":185,"height":110.85000610351562},"14":{"left":2867,"top":254,"width":249,"height":40.23333740234375},"15":{"left":2948,"top":323,"width":863,"height":555},"16":{"left":66,"top":715,"width":370,"height":86.93333435058594},"17":{"left":504,"top":676,"width":176,"height":42.46665954589844},"18":{"left":744,"top":618,"width":467,"height":243.93333435058594},"19":{"left":9,"top":106,"width":309.3999938964844,"height":547.4666748046875}}
+`);
 
-// let c0 = 2, c1 = 11, c2 = 20, c3=29;
-let c0 = 1, c1 = 8, c2 = 16, c3=27-3;
-let cx = c2*1;
-let dx = cx+5;
-let d0 = c1, d1 = c2, d2=c3, d3=33;
-// main decompression "pipeline"
-//              _, kind,                  rows        cols     name=null, link, content=''
-var inputPanel = ["fileIn",                1,  3,    c0, d0,  "Input - Compressed Data"];
-var compHexPanel = ["hexViewerComp",       1, 10,    c1, d1,  "Hex Viewer - Compressed Data", [0]]; // 1
-
-var decompHexPanel = ["hexViewer",        10, 19,    c1, d1,  "Hex Viewer - Decompressed Data", [0, null, 1]]; // 2
-
-var paletteInputPanel = ["fileIn",         1,  3,    c3, d3,  "Input - Palette"];  //  3
-var paletteViewer = ["paletteViewer",      3,  6,    c3, d3,  "Palette", [3]]; // 4
-
-var bitplanePanel = ["bitplaneViewer",     1, 15,    c2, d2,  "Bitplane Viewer - Decompressed Data", [2, 4]]; // 5 hex view decomp, palettevwr
-var tilesetViewer = ["tilesetViewer",     15, 19,    c2, d2-1,  "Tiles", [2, 4, 5]]; //  6   4, 3, 5  hex view decomp, palette vwr, bitplane
-var metatilemapInputPanel = ["fileIn",     6,  8,    c3, d3,  "Input - Tilemap32 (Metatiles)"]; //  7
-var metatilesViewer = ["metatilesViewer",  8, 15,    c3, d3,  "Tilemap32 (Metatiles)", [4,6,7]]; // 8 pal viewer, tileset vwr, metatile input
-var levelMapInputPanel = ["fileIn",       15, 17,    c3, d3,  "Input - Level Map"]; //  9
-var levelMapViewer = ["levelMapViewer",   17, 29,    c3, d3,  "Level Map", [4,8,9]]; // 10 paletteViewer, metatilesViewer, fileIn
-var description = ["textDescription",      3, 19,    c0, d0,  "About - App", null, aboutText2]; // 11
-
-// for the Compression "pipeline"
-var compPipelineText = `\
-<div class="text_content" >
-  <p>This group of panels (12-16) represents a separate pipeline from the others above.</p>
-  <p>Enter <u>un</u>compressed data to the file input above to compress it. In the compressed data hex viewer to the right, you can download the compressed data file from the "☰" menu.</p><br>
-  <p> Also to the right, below that, you'll see your newly-compressed data get re-decompressed, if you wanted to immediately verify it. You can also verify it with the associated tileset viewer to the right.
-  </div>`;
-var inputPanelC = ["fileIn",               20, 23,    c0, d0,  "Input - Uncompressed Data"];// 12
-var compressC = ["hexViewerCompressed",    20, 24,    c1, d1,  "Hex Viewer - Compressed-by-this-app Data", [12]]; // 13
-var decompressC = ["hexViewer",            24, 28,    c1, d1,  "Hex Viewer - Decompressed from compressed-by-this-app Data", [13]]; // 14
-var tilesetViewerC = ["tilesetViewer",     24, 28,    c2, d2-1,  "Tiles", [14, null, null ]];
-var descriptionC = ["textDescription",     23, 28,    c0, d0,  "About - Compression", null, compPipelineText]; // 11
-
-const ui = new UImodel(
-        document.getElementById("panelgrid_1"),
-        [ inputPanel, compHexPanel,
-        decompHexPanel, paletteInputPanel,
-        paletteViewer, bitplanePanel,
-        tilesetViewer,
-        metatilemapInputPanel, metatilesViewer,
-        levelMapInputPanel, levelMapViewer,
-        description,
-              inputPanelC, compressC, decompressC, tilesetViewerC, descriptionC, 
-      ],
-        "main"
-    );
-
-let pg = document.getElementById("panelgrid_1");
-
-*/
+`
+,"16":{"left":6,"top":95,"width":334,"height":490},"17":{"left":6,"top":590,"width":300,"height":80},"18":{"left":350,"top":590,"width":300,"height":30}
+`;
 
 </script>
 

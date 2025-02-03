@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+    <html>
+<!-- Created 2024-10-23 / Release 0.1 2024-11-21 -->
+<head>
+  <meta charset="UTF-8">
+  <title>Comp/Decomp Country</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZwogICB3aWR0aD0iNjkuMzg5NTcybW0iCiAgIGhlaWdodD0iODcuNDI1MTg2bW0iCiAgIHZpZXdCb3g9IjAgMCA2OS4zODk1NzIgODcuNDI1MTg2IgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcxIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnMxIiAvPgogIDxnCiAgICAgaWQ9ImxheWVyMSIKICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTIuMjU5NDUxLC0zLjcwMjU1MzUpIj4KICAgIDxwYXRoCiAgICAgICBpZD0icGF0aDEiCiAgICAgICBzdHlsZT0iZmlsbDojYjNiMzAwO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjM2Njk7c3Ryb2tlLW9wYWNpdHk6MC42OSIKICAgICAgIGQ9Im0gNTkuNDA2NDQzLDMuNzAyNTUzNSAtMi4yNjczMDUsMC42NTI0MTQgLTIuNDI0OTE1LDEuOTIyMzY1IDMuOTI4Nyw3LjY1OTczNzUgYyAwLDAgLTAuMDI1NTcsMjQuMTMzMTExIC02LjY0NDI5NywzNC4wNDA1NjEgLTEwLjAyOTEsMTYuNjM0NDk3IC0zNS43MjU1MywyNi4yOTgwNjIgLTM3Ljk0OTg4LDM3LjUzMzg4MiBsIC0xLjc4OTI5NSwyLjYwMDYxOCAwLjkyMjQyMiwyLjM3NTgyNSAyLjc0NDAyLC0wLjIwNTQyNSBjIDAsMCAxMy4zNjQyMSw0LjcyNzU5NyAzMy4zOTMzMSwtOC4xNzkwODggQyA3MC44NzE1MjgsNjguMjE1MTk4IDgyLjg0OTc3MSw1NS42MTEyNzEgODEuNTUzNjcxLDM0LjI4MzM2NiA4MC40NjQyMjgsMTYuMzU1OTkgNjYuNDgyMjM4LDExLjgyMzQ5NSA2Ni40ODIyMzgsMTEuODIzNDk1IFoiIC8+CiAgPC9nPgo8L3N2Zz4K" />
+
+<style></style>
+
+<link href="main.css" rel="stylesheet" />
+
+</head>
+
+<!-- for various string, array/matrix, data interleaving, and formatting functions -->
+<script src="utilities.js"></script>
+
+<!-- for various string, array/matrix, data interleaving, and formatting functions -->
+<script src="compression.js"></script>
+
+<!-- Our "3D" SVG script, for bitplanes and more -->
+<script src="svg3d.js"></script>
+
+<body>
+
+  <svg width="100vw" height="100vh" style="position:absolute;">
+    <!-- oooh banana -->
+    <pattern id="bananas" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+
+      <path d="M 31.320569 9.8309245
+      L 30.413647 10.09189
+      L 29.443681 10.860836
+      L 31.015161 13.924731
+      C 31.015161 13.924731 31.004927 23.577975 28.357442 27.540955
+      C 24.345802 34.194754 14.06723 38.06018 13.17749 42.554508
+      L 12.461772 43.594755
+      L 12.830741 44.545085
+      L 13.928349 44.462919
+      C 13.928349 44.462919 19.274033 46.353958 27.285673 41.191284
+      C 35.906603 35.635986 40.6979 30.594415 40.17946 22.063253
+      C 39.743683 14.892303 34.150887 13.079305 34.150887 13.079305
+      L 31.320569 9.8309245
+      z
+
+      M 81.320618 59.830973
+      L 80.413696 60.091939
+      L 79.44373 60.860885
+      L 81.01521 63.92478
+      C 81.01521 63.92478 81.004976 73.578023 78.357491 77.541003
+      C 74.345851 84.194802 64.067279 88.060229 63.177539 92.554557
+      L 62.46182 93.594804
+      L 62.83079 94.545133
+      L 63.928398 94.462968
+      C 63.928398 94.462968 69.274082 96.354007 77.285722 91.191333
+      C 85.906652 85.636035 90.697948 80.594464 90.179508 72.063302
+      C 89.743731 64.892352 84.150936 63.079354 84.150936 63.079354
+      L 81.320618 59.830973
+      z" stroke="none" fill="rgb(30, 30, 30)" ></path>
+    </pattern>
+
+    <rect x="0" y="0" width="100vw" height="100vh" fill="url(#bananas)"></rect>
+
+  </svg>
+
+
+  <div class="main" id="main">
+    <!-- <div id="animationBottom" class="animationBottom"></div> -->
+    <div id="navbar">
+      <h4><i style="padding-left:5ch;">Comp / Decomp Country</i></h4>
+    </div>
+
+    <div id="workspace_1" class="workspace">
+      <div id="panelgrid_1" class="panelgrid"></div>
+      <div id="panel_links_1" class="panel_links"></div>
+    </div>
+
+  </div>
+
+
+  <div id="animationTop" class="animationTop"></div>
+
+<!-- for animations (mainly decompression animations) -->
+<script src="animation.js"></script>
+
+<!-- for GUI panels and their methods -->
+<script src="panels.js"></script>
+
+<script>
+
+//
+//   Create the ui and panels
+//
+
+let c0 = 2, c1 = 8, c2 = 16, c3=27-2;
+let cx = c2*1;
+let dx = cx+5;
+let d0 = c1-1, d1 = c2-1, d2=c3-1, d3=32;
+
+const workspace1 = new Workspace( document.getElementById("panelgrid_1") );
+
+
+var links = [];
+
+// input and decompressor
+var inputPanel = new FilePanel(workspace1, 1,  3,    c0, d0,  "File: Compressed Gfx");
+
+// hex viewers for comp/decomp
+var compHexPanel = new HexPanel( workspace1,  1, 10, c1, d1,  "Hex View: Compressed Data"); // 1
+links.push( workspace1.addLink( new Link(inputPanel.outputPorts.out, compHexPanel.inputPorts.in) ) );
+
+var decompressPanel = new ChrDecompressPanel(workspace1, 3,  3,    c0, d0,  "Decompress");
+links.push( workspace1.addLink( new Link(compHexPanel.outputPorts.out, decompressPanel.inputPorts.in) ) );
+
+var decompHexPanel = new HexPanel( workspace1,  10, 19, c1, d1,  "Hex View: Decompressed Data"); // 2
+links.push( workspace1.addLink( new Link(decompressPanel.outputPorts.out, decompHexPanel.inputPorts.in) ) );
+
+// bitplane viewer
+var bitplanePanel = new BitplanePanel( workspace1,   1, 12,    c2, d2, "View Bitplanes");
+links.push( workspace1.addLink( new Link(decompHexPanel.outputPorts.out, bitplanePanel.inputPorts.in) ) );
+
+
+// unbitplane and show tiles
+var unbitplanePanel = new UnbitplanePanel( workspace1,   13, 13,    c2, c2+3, "Unbitplane");
+links.push( workspace1.addLink( new Link(bitplanePanel.outputPorts.out, unbitplanePanel.inputPorts.in) ) );
+var tilesetViewer = new TilesetPanel( workspace1,  15, 19,   c2, d2-1,  "Tileset (8x8 Tiles)");
+links.push( workspace1.addLink( new Link( unbitplanePanel.outputPorts.out, tilesetViewer.inputPorts.in) ) );
+
+
+var decompPipelineText = `\
+<div class="text_content" >
+  <p>This group of panels allows you to decompress graphics tilesets and view them right away.</p>
+  <p>
+    Enter the compressed data to the file input above to decompress it. 
+    <br>You can animate the decompression process from the panel 1's "☰" menu.
+    <br>You can download the resulting decompressed data file from panel 3's "☰" menu. This will be in SNES 4 BPP format.
+    <br>Check out panel 5 to see how the 4 BPP data gets "un-bitplaned" to form 8x8 pixel indexed-color images.
+    <br>You can download a .png of the decompressed tileset from panel 6. This uses a grayscale color map because we do not yet have a color palette associated with the tiles at this step.
+  </p>
+  <p>
+    <a href="index.html">Back to main page</a>.
+  </p>
+</div>`;
+var descriptionC = new TextPanel( workspace1,  23, 28,    c0, c1+4+2,  "About - Decompression ", decompPipelineText );
+
+workspace1.repositionPanels(`{"0":{"left":26,"top":7,"width":300,"height":75.14999389648438},"1":{"left":450,"top":8,"width":449,"height":358.1499938964844},"2":{"left":930,"top":8,"width":163,"height":31},"3":{"left":1136,"top":8,"width":446,"height":359.1499938964844},"4":{"left":536,"top":379,"width":681,"height":493.2833251953125},"5":{"left":1276,"top":388,"width":180,"height":34},"6":{"left":1277,"top":462,"width":336,"height":415.2833251953125},"7":{"left":16,"top":111,"width":321,"height":437.8500061035156}}`);
+
+
+</script>
+
+</body>
+
+</html>
